@@ -1,0 +1,3 @@
+/**
+ * PokemonCard.tsx
+ */

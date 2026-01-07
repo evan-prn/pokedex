@@ -27,3 +27,4 @@ export async function GetPokemonListByAPI() {
         throw err; // Relancer l'erreur pour la gérer dans le composant
     }
 }
+

@@ -1,0 +1,176 @@
+/**
+ * CurrentTrainer.css
+ *
+ * Styles pour la carte du dresseur actuel
+ */
+
+/* ==================== CONTENEUR PRINCIPAL ==================== */
+
+.current-trainer-container {
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}
+
+/* ==================== CARTE DU DRESSEUR ==================== */
+
+/**
+ * Carte principale avec effet glassmorphism
+ */
+.trainer-card {
+    background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.9) 0%,
+            rgba(255, 255, 255, 0.8) 100%
+    );
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+
+    padding: 2rem;
+    min-width: 300px;
+    max-width: 500px;
+    width: 100%;
+
+    box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.trainer-card:hover {
+    transform: translateY(-5px);
+    box-shadow:
+            0 12px 40px rgba(0, 0, 0, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* ==================== EN-TÊTE ==================== */
+
+.trainer-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+}
+
+.trainer-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #667eea;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ==================== INFORMATIONS ==================== */
+
+.trainer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.info-row:hover {
+    background: rgba(102, 126, 234, 0.15);
+    transform: translateX(5px);
+}
+
+.info-row .label {
+    font-weight: 600;
+    color: #667eea;
+    font-size: 0.938rem;
+}
+
+.info-row .value {
+    font-weight: 700;
+    color: #333;
+    font-size: 1.125rem;
+}
+
+/* ==================== ÉTAT VIDE ==================== */
+
+/**
+ * Affichage quand aucun dresseur n'est sélectionné
+ */
+.current-trainer-container.empty {
+    min-height: 150px;
+}
+
+.empty-message {
+    font-size: 1.125rem;
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    border: 2px dashed rgba(102, 126, 234, 0.3);
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+/**
+ * Tablettes (max 768px)
+ */
+@media (max-width: 768px) {
+    .current-trainer-container {
+        padding: 1.5rem 1rem;
+    }
+
+    .trainer-card {
+        min-width: unset;
+        padding: 1.5rem;
+    }
+
+    .trainer-header h3 {
+        font-size: 1.25rem;
+    }
+
+    .info-row .value {
+        font-size: 1rem;
+    }
+}
+
+/**
+ * Mobiles (max 480px)
+ */
+@media (max-width: 480px) {
+    .trainer-card {
+        padding: 1.25rem;
+    }
+
+    .trainer-header {
+        margin-bottom: 1rem;
+    }
+
+    .trainer-header h3 {
+        font-size: 1.125rem;
+    }
+
+    .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .info-row .label,
+    .info-row .value {
+        font-size: 0.938rem;
+    }
+}

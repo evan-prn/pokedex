@@ -5,6 +5,8 @@
 import React, {useState, type FormEvent} from 'react';
 import type { ITrainer } from '../types/ITrainer.ts';
 
+import '../css/TrainerForm.css'
+
 interface TrainerFormProps {
     onAddTrainer: (trainer: ITrainer) => void;
 }
@@ -47,25 +49,33 @@ const TrainerForm = ({ onAddTrainer }: TrainerFormProps) => {
 
     return (
         <>
-            <h2>Register trainers</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    placeholder="Nom du dresseur"
-                    name="trainerName"
-                    value={trainer.trainerName}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    placeholder="Starter du dresseur"
-                    name="trainerStarter"
-                    value={trainer.trainerStarter}
-                    onChange={handleChange}
-                    required
-                />
+            <div className={`trainer-form-container`}>
+                <h2>Register Trainers</h2>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        placeholder="Nom du dresseur"
+                        name="trainerName"
+                        value={trainer.trainerName}
+                        onChange={handleChange}
+                        required
+                        aria-label="Nom du dresseur"
+                    />
+                    <input
+                        type="text"
+                        placeholder="Starter du dresseur"
+                        name="trainerStarter"
+                        value={trainer.trainerStarter}
+                        onChange={handleChange}
+                        required
+                        aria-label="Starter du dresseur"
+                    />
 
-                <button type="submit">Ajouter</button>
-            </form>
+                    <button type="submit" aria-label="Ajouter le dresseur">
+                        Ajouter dresseur
+                    </button>
+                </form>
+            </div>
         </>
     )
 }

@@ -1,0 +1,138 @@
+/**
+ * Navbar.css
+ *
+ * Styles pour la barre de navigation principale
+ * Contient les styles partagés par tous les composants enfants
+ */
+
+/* ==================== NAVBAR PRINCIPALE ==================== */
+
+/**
+ * Conteneur principal de la navbar avec glassmorphism
+ */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 2.5rem;
+    gap: 2rem;
+
+    /* Effet glassmorphism moderne */
+    background: linear-gradient(
+            135deg,
+            rgba(102, 126, 234, 0.95) 0%,
+            rgba(118, 75, 162, 0.95) 100%
+    );
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    /* Bordures et ombres sophistiquées */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow:
+            0 8px 32px rgba(31, 38, 135, 0.37),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+    /* Position fixe en haut */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    /* Pour l'effet de brillance */
+    position: relative;
+    overflow: hidden;
+}
+
+/**
+ * Effet de brillance animé en arrière-plan
+ */
+.navbar::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+            45deg,
+            transparent,
+            rgba(255, 255, 255, 0.1),
+            transparent
+    );
+    animation: shine 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes shine {
+    0%, 100% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    50% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+}
+
+/**
+ * Animation d'entrée de la navbar
+ */
+@keyframes slideInFromTop {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.navbar {
+    animation: slideInFromTop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+/**
+ * Tablettes (max 992px)
+ */
+@media (max-width: 992px) {
+    .navbar {
+        padding: 1rem 2rem;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+    }
+}
+
+/**
+ * Mobile (max 768px) - Layout vertical
+ */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 1.5rem 1rem;
+        gap: 1.5rem;
+    }
+}
+
+/**
+ * Petits mobiles (max 480px)
+ */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 1.25rem;
+        gap: 1rem;
+    }
+}
+
+/* ==================== ACCESSIBILITÉ ==================== */
+
+/**
+ * Mode accessibilité réduit (préférence utilisateur)
+ */
+@media (prefers-reduced-motion: reduce) {
+    .navbar,
+    .navbar *,
+    .navbar::before {
+        animation: none !important;
+        transition: none !important;
+    }
+}

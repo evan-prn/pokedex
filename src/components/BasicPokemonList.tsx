@@ -1,55 +1,108 @@
 /**
  * BasicPokemonList.tsx
+ *
+ * Composant affichant une grille de cartes Pokémon avec leurs informations de base.
+ * Gère automatiquement le chargement des données depuis l'API au montage du composant.
+ *
+ * @component
+ * @example
+ * return (
+ *   <BasicPokemonList />
+ * )
  */
 
-import { useState, useEffect } from 'react';
+import {useState, useEffect, type JSX} from 'react';
 import { GetPokemonListByAPI } from '../api/TyradexAPI';
+import PokemonCard from './PokemonCard'; // ✅ Import default
 import type { IPokemon } from '../types/IPokemon.ts';
 
 /**
- * Composant affichant la liste des Pokémon
+ * Composant principal affichant la liste complète des Pokémon sous forme de grille.
+ *
+ * Fonctionnalités :
+ * - Récupération automatique des données au montage
+ * - Gestion des états de chargement et d'erreur
+ * - Affichage responsive en grille
+ * - Carte individuelle pour chaque Pokémon avec sprite, nom et types
+ *
+ * @returns {JSX.Element} Grille de cartes Pokémon ou état de chargement/erreur
  */
-const BasicPokemonList = () => {
+const BasicPokemonList = (): JSX.Element => {
 
-    // État pour stocker les pokémon
+    /** État contenant la liste complète des Pokémon récupérés depuis l'API */
     const [pokemons, setPokemons] = useState<IPokemon[]>([]);
 
-    // État de chargement
-    const [loading, setLoading] = useState(true);
+    /** Indicateur de chargement des données (true pendant le fetch) */
+    const [loading, setLoading] = useState<boolean>(true);
 
-    // État d'erreur
+    /** Message d'erreur en cas d'échec du chargement, null si pas d'erreur */
     const [error, setError] = useState<string | null>(null);
 
-    // ⚡ Charge les pokémon au montage du composant
+    /**
+     * Effect hook pour charger les Pokémon au montage du composant.
+     *
+     * Processus :
+     * 1. Active l'état de chargement
+     * 2. Appelle l'API pour récupérer les données
+     * 3. Stocke les données dans le state
+     * 4. Gère les erreurs potentielles
+     * 5. Désactive l'état de chargement
+     *
+     * @async
+     */
     useEffect(() => {
         const loadPokemons = async () => {
             try {
+                // Activation du loader
                 setLoading(true);
-                const data = await GetPokemonListByAPI(); // Appel de ta fonction
-                setPokemons(data); // Stocke les données
+
+                // Appel de l'API pour récupérer tous les Pokémon
+                const data = await GetPokemonListByAPI();
+
+                // Stockage des données récupérées dans le state
+                setPokemons(data);
+
+                // Log de confirmation (peut être retiré en production)
                 console.log("Pokémon chargés:", data);
             } catch (err) {
+                // Capture et stockage de l'erreur pour affichage utilisateur
                 setError("Impossible de charger les Pokémon");
-                console.error(err);
+                console.error("Erreur lors du chargement:", err);
             } finally {
+                // Désactivation du loader dans tous les cas (succès ou erreur)
                 setLoading(false);
             }
         };
 
+        // Exécution de la fonction de chargement
         loadPokemons();
-    }, []); // [] = s'exécute une seule fois
+    }, []); // Tableau de dépendances vide = exécution uniquement au montage
 
-    // Affichage pendant le chargement
+    /**
+     * Rendu conditionnel : affichage du loader pendant le chargement
+     */
     if (loading) {
-        return <div>Chargement des Pokémon...</div>;
+        return (
+            <div role="status" aria-live="polite">
+                Chargement des Pokémon...
+            </div>
+        );
     }
 
-    // Affichage si erreur
+    /**
+     * Rendu conditionnel : affichage du message d'erreur en cas d'échec
+     */
     if (error) {
-        return <div style={{ color: 'red' }}>Erreur: {error}</div>;
+        return (
+            <div role="alert" style={{ color: 'red' }}>
+                Erreur: {error}
+            </div>
+        );
     }
 
-    // Affichage de la liste
+    /**
+     * Rendu principal : grille de cartes Pokémon
+     */
     return (
         <div style={{ padding: '20px' }}>
             <h2>Liste des Pokémon ({pokemons.length})</h2>
@@ -60,41 +113,10 @@ const BasicPokemonList = () => {
                 gap: '1rem'
             }}>
                 {pokemons.map((pokemon) => (
-                    <div key={pokemon.pokedex_id} style={{
-                        border: '1px solid #ddd',
-                        padding: '10px',
-                        borderRadius: '8px',
-                        textAlign: 'center',
-                        background: 'white'
-                    }}>
-                        <p style={{ color: '#999', fontSize: '0.8rem' }}>
-                            #{pokemon.pokedex_id}
-                        </p>
-
-                        {pokemon.sprites?.regular && (
-                            <img
-                                src={pokemon.sprites.regular}
-                                alt={pokemon.name?.fr}
-                                style={{ width: '100px', height: '100px' }}
-                            />
-                        )}
-
-                        <p><strong>{pokemon.name?.fr}</strong></p>
-
-                        <div>
-                            {pokemon.types?.map((type: IPokemon, index: number) => (
-                                <span key={index} style={{
-                                    background: '#e5e7eb',
-                                    padding: '2px 8px',
-                                    borderRadius: '4px',
-                                    fontSize: '0.75rem',
-                                    margin: '0 2px'
-                                }}>
-                                    {type.name}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
+                    <PokemonCard
+                        key={pokemon.pokedex_id}
+                        pokemon={pokemon}
+                    />
                 ))}
             </div>
         </div>

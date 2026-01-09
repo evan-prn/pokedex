@@ -4,9 +4,8 @@
  * Composant affichant les informations du dresseur actuellement sélectionné.
  * Reçoit le dresseur depuis le composant parent (Navbar).
  */
-import type {JSX} from "react";
-import type { ITrainer } from '../types/ITrainer';
 
+import type { ITrainer } from '../../types/ITrainer';
 import style  from '../css/CurrentTrainer.module.css';
 
 /**
@@ -20,23 +19,22 @@ interface CurrentTrainerProps {
 /**
  * Composant affichant la carte du dresseur actuel
  *
- * @param {CurrentTrainerProps} props - Props du composant
+ * @param {CurrentTrainerProps} props _ Props du composant
  * @returns {JSX.Element} Carte du dresseur ou message par défaut
  */
-const CurrentTrainer = ({ trainer }: CurrentTrainerProps): JSX.Element => {
-
+const CurrentTrainer = ({ trainer }: CurrentTrainerProps) => {
+    
     // Si aucun dresseur n'est sélectionné, afficher un message
     if (!trainer) {
         return (
             <div className={`${style.current_trainer_container} ${style.current_trainer_container_empty}`}>
-                <p className={style.empty_message}>
+                <p className={style.emptymessage}>
                     Aucun dresseur sélectionné
                 </p>
             </div>
         );
     }
 
-    // Affichage du dresseur sélectionné
     return (
         <div className={style.current_trainer_container}>
             <div className={style.trainer_card}>
@@ -57,7 +55,7 @@ const CurrentTrainer = ({ trainer }: CurrentTrainerProps): JSX.Element => {
                 </div>
             </div>
         </div>
-    );
+    ) : 
 };
 
 export default CurrentTrainer;

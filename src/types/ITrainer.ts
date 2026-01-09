@@ -6,7 +6,7 @@ interface ITrainer {
     trainerName: string;
 
     /** Pokémon de départ du dresseur */
-    trainerStarter: string;
+    trainerPassword: string;
 }
 
 export type { ITrainer };

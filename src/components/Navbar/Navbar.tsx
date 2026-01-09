@@ -9,7 +9,7 @@ import type { ITrainer } from "../../types/ITrainer.ts";
 import TrainerForm      from "../TrainerForm/TrainerForm.tsx";
 import TrainerSelector  from "../TrainerSelector/TrainerSelector.tsx";
 
-import '../css/Navbar.module.css';
+import style from './Navbar.module.css';
 
 /**
  * Props de la Navbar
@@ -51,7 +51,16 @@ const Navbar = ({ selectedTrainer, onTrainerSelect }: NavbarProps) => {
     };
 
     return (
-        <nav className="navbar">
+        <nav className={style.navbar}>
+
+            <div className={style.navbar_icon}>
+                <img
+                    src="/pokeball.png"
+                    alt="Pokéball icon"
+                />
+            </div>
+            <h1 className={style.navbar_title}>Poké-Tracker</h1>
+
             {/* TrainerForm ajoute les dresseurs à la liste locale */}
             <TrainerForm onAddTrainer={handleAddTrainer} />
 

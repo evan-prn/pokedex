@@ -7,7 +7,7 @@
 import type {JSX} from "react";
 import type { ITrainer } from '../../types/ITrainer';
 
-import style  from '../css/CurrentTrainer.module.css';
+import style from './CurrentTrainer.module.css';
 
 
 /**
@@ -30,7 +30,7 @@ const CurrentTrainer = ({ trainer }: CurrentTrainerProps): JSX.Element => {
     if (!trainer) {
         return (
             <div className={`${style.current_trainer_container} ${style.current_trainer_container_empty}`}>
-                <p className={style.emptymessage}>
+                <p className={style.empty_message}>
                     Aucun dresseur sélectionné
                 </p>
             </div>
@@ -51,8 +51,8 @@ const CurrentTrainer = ({ trainer }: CurrentTrainerProps): JSX.Element => {
                     </div>
 
                     <div className={style.info_row}>
-                        <span className={style.label}>Starter :</span>
-                        <span className={style.value}>{trainer.trainerStarter}</span>
+                        <span className={style.label}>Password :</span>
+                        <span className={style.value}>{trainer.trainerPassword}</span>
                     </div>
                 </div>
             </div>

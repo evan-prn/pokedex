@@ -1,16 +1,16 @@
 /**
- * TrainerSelector.css
+ * TrainerSelector.module.css
  *
  * Styles pour le sélecteur de dresseur
  */
 
-.trainer-selector-container {
+.trainer_selector_container {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
-.trainer-selector-container label {
+.trainer_selector_container label {
     color: #ffffff;
     font-weight: 600;
     font-size: 0.938rem;
@@ -18,7 +18,7 @@
     white-space: nowrap;
 }
 
-.trainer-selector-container select {
+.trainer_selector_container select {
     padding: 0.75rem 1.25rem;
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
@@ -39,12 +39,12 @@
             inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
-.trainer-selector-container select:hover {
+.trainer_selector_container select:hover {
     border-color: rgba(255, 215, 0, 0.5);
     transform: translateY(-1px);
 }
 
-.trainer-selector-container select:focus {
+.trainer_selector_container select:focus {
     outline: none;
     border-color: #ffd700;
     box-shadow:
@@ -52,20 +52,20 @@
             0 8px 16px rgba(255, 215, 0, 0.2);
 }
 
-.trainer-selector-container select:disabled {
+.trainer_selector_container select:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .trainer-selector-container {
+    .trainer_selector_container {
         width: 100%;
         flex-direction: column;
         gap: 0.5rem;
     }
 
-    .trainer-selector-container select {
+    .trainer_selector_container select {
         width: 100%;
     }
 }

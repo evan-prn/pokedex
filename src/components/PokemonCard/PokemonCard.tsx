@@ -1,11 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import type { IPokemon } from '../../types/IPokemon.ts';
+import style from './PokemonCard.module.css';
 
 /**
- * Composant carte individuelle pour un Pokémon.
- * Affiche le sprite, le nom, le numéro et les types d'un Pokémon.
- *
- * @param {IPokemon} pokemon - Données du Pokémon à afficher
- * @returns {JSX.Element} Carte du Pokémon
+ * Props du composant PokemonCard
+ * @property {IPokemon} pokemon - Données du Pokémon à afficher
  */
 interface PokemonCardProps {
     pokemon: IPokemon;
@@ -13,57 +12,72 @@ interface PokemonCardProps {
 
 /**
  * Composant carte individuelle pour un Pokémon
- * @param {IPokemon} pokemon - Données du Pokémon à afficher
+ * Cliquable pour naviguer vers la page de détail
  */
-const PokemonCard = ({ pokemon }: PokemonCardProps) => (
-    <div
-        style={{
-            border: '1px solid #ddd',
-            padding: '10px',
-            borderRadius: '8px',
-            textAlign: 'center',
-            background: 'white'
-        }}
-    >
-        {/* Numéro du Pokédex */}
-        <p style={{ color: '#999', fontSize: '0.8rem' }}>
-            #{pokemon.pokedex_id.toString().padStart(3, '0')}
-        </p>
+const PokemonCard = ({ pokemon }: PokemonCardProps) => {
+    const navigate = useNavigate();
 
-        {/* Sprite du Pokémon */}
-        {pokemon.sprites?.regular && (
-            <img
-                src={pokemon.sprites.regular}
-                alt={`Sprite de ${pokemon.name?.fr || 'Pokémon inconnu'}`}
-                style={{ width: '100px', height: '100px' }}
-                loading="lazy"
-            />
-        )}
+    /**
+     * Gère le clic sur la carte
+     * Navigue vers la page de détail du Pokémon
+     */
+    const handleClick = () => {
+        navigate(`/pokemon/${pokemon.pokedex_id}`);
+    };
 
-        {/* Nom du Pokémon */}
-        <p>
-            <strong>{pokemon.name?.fr || 'Nom inconnu'}</strong>
-        </p>
+    /**
+     * Gère la navigation au clavier (accessibilité)
+     * @param {React.KeyboardEvent} e - Événement clavier
+     */
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleClick();
+        }
+    };
 
-        {/* Types du Pokémon */}
-        <div>
-            {pokemon.types?.map((type, index: number) => (
-                <span
-                    key={index}
-                    style={{
-                        background: '#e5e7eb',
-                        padding: '2px 8px',
-                        borderRadius: '4px',
-                        fontSize: '0.75rem',
-                        margin: '0 2px',
-                        display: 'inline-block'
-                    }}
-                >
-                    {type.name}
-                </span>
-            ))}
+    return (
+        <div
+            className={style.pokemon_card}
+            onClick={handleClick}
+            onKeyDown={handleKeyDown}
+            role="button"
+            tabIndex={0}
+            aria-label={`Voir les détails de ${pokemon.name?.fr || 'ce Pokémon'}`}
+        >
+            {/* Numéro du Pokédex */}
+            <p className={style.pokedex_number}>
+                #{pokemon.pokedex_id.toString().padStart(3, '0')}
+            </p>
+
+            {/* Sprite du Pokémon */}
+            {pokemon.sprites?.regular && (
+                <img
+                    src={pokemon.sprites.regular}
+                    alt={`Sprite de ${pokemon.name?.fr || 'Pokémon inconnu'}`}
+                    className={style.pokemon_sprite}
+                    loading="lazy"
+                />
+            )}
+
+            {/* Nom du Pokémon */}
+            <p className={style.pokemon_name}>
+                <strong>{pokemon.name?.fr || 'Nom inconnu'}</strong>
+            </p>
+
+            {/* Types du Pokémon */}
+            <div className={style.pokemon_types}>
+                {pokemon.types?.map((type, index: number) => (
+                    <span
+                        key={index}
+                        className={style.type_badge}
+                    >
+                        {type.name}
+                    </span>
+                ))}
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 export default PokemonCard;

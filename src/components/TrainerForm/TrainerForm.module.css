@@ -10,7 +10,7 @@
 /**
  * Conteneur du formulaire (sans background, géré par .navbar)
  */
-.trainer-form-container {
+.trainer_form_container {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -23,7 +23,7 @@
 /**
  * Titre avec effet néon subtil
  */
-.trainer-form-container h2 {
+.trainer_form_container h2 {
     margin: 0;
     font-size: 1.125rem;
     font-weight: 700;
@@ -41,7 +41,7 @@
 /**
  * Formulaire en ligne
  */
-.trainer-form-container form {
+.trainer_form_container form {
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -53,7 +53,7 @@
 /**
  * Inputs avec design glassmorphism
  */
-.trainer-form-container input {
+.trainer_form_container input {
     padding: 0.75rem 1.25rem;
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
@@ -79,7 +79,7 @@
 /**
  * État focus avec effet néon doré
  */
-.trainer-form-container input:focus {
+.trainer_form_container input:focus {
     outline: none;
     border-color: #ffd700;
     background: rgba(255, 255, 255, 1);
@@ -95,7 +95,7 @@
 /**
  * Placeholder stylisé
  */
-.trainer-form-container input::placeholder {
+.trainer_form_container input::placeholder {
     color: #666;
     font-weight: 400;
 }
@@ -103,7 +103,7 @@
 /**
  * État hover
  */
-.trainer-form-container input:hover {
+.trainer_form_container input:hover {
     border-color: rgba(255, 215, 0, 0.5);
     transform: translateY(-1px);
 }
@@ -113,7 +113,7 @@
 /**
  * Bouton premium avec dégradé animé
  */
-.trainer-form-container button {
+.trainer_form_container button {
     padding: 0.75rem 1.75rem;
     border: none;
     border-radius: 12px;
@@ -147,7 +147,7 @@
 /**
  * Animation du dégradé au hover
  */
-.trainer-form-container button:hover {
+.trainer_form_container button:hover {
     background-position: 100% 50%;
     transform: translateY(-3px) scale(1.05);
 
@@ -160,7 +160,7 @@
 /**
  * Effet de brillance sur le bouton
  */
-.trainer-form-container button::before {
+.trainer_form_container button::before {
     content: '';
     position: absolute;
     top: 0;
@@ -176,14 +176,14 @@
     transition: left 0.6s ease;
 }
 
-.trainer-form-container button:hover::before {
+.trainer_form_container button:hover::before {
     left: 100%;
 }
 
 /**
  * État actif
  */
-.trainer-form-container button:active {
+.trainer_form_container button:active {
     transform: translateY(-1px) scale(1.02);
     box-shadow:
             0 4px 12px rgba(255, 215, 0, 0.5),
@@ -193,7 +193,7 @@
 /**
  * État disabled
  */
-.trainer-form-container button:disabled {
+.trainer_form_container button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
     transform: none;
@@ -214,7 +214,7 @@
     100% { transform: scale(1); }
 }
 
-.trainer-form-container.success {
+.trainer_form_container.success {
     animation: successPulse 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -224,20 +224,20 @@
  * Tablettes (max 992px)
  */
 @media (max-width: 992px) {
-    .trainer-form-container {
+    .trainer_form_container {
         gap: 0.75rem;
     }
 
-    .trainer-form-container h2 {
+    .trainer_form_container h2 {
         font-size: 1rem;
     }
 
-    .trainer-form-container input {
+    .trainer_form_container input {
         min-width: 150px;
         padding: 0.625rem 1rem;
     }
 
-    .trainer-form-container button {
+    .trainer_form_container button {
         padding: 0.625rem 1.25rem;
     }
 }
@@ -246,29 +246,29 @@
  * Mobile (max 768px)
  */
 @media (max-width: 768px) {
-    .trainer-form-container {
+    .trainer_form_container {
         flex-direction: column;
         width: 100%;
         gap: 1rem;
     }
 
-    .trainer-form-container h2 {
+    .trainer_form_container h2 {
         width: 100%;
         text-align: center;
     }
 
-    .trainer-form-container form {
+    .trainer_form_container form {
         width: 100%;
         flex-direction: column;
         gap: 0.75rem;
     }
 
-    .trainer-form-container input {
+    .trainer_form_container input {
         width: 100%;
         min-width: unset;
     }
 
-    .trainer-form-container button {
+    .trainer_form_container button {
         width: 100%;
         padding: 0.875rem;
         font-size: 1rem;
@@ -279,12 +279,12 @@
  * Petits mobiles (max 480px)
  */
 @media (max-width: 480px) {
-    .trainer-form-container h2 {
+    .trainer_form_container h2 {
         font-size: 0.938rem;
     }
 
-    .trainer-form-container input,
-    .trainer-form-container button {
+    .trainer_form_container input,
+    .trainer_form_container button {
         font-size: 0.875rem;
         border-radius: 10px;
     }
@@ -296,17 +296,17 @@
  * Support du dark mode système
  */
 @media (prefers-color-scheme: dark) {
-    .trainer-form-container input {
+    .trainer_form_container input {
         background: rgba(255, 255, 255, 0.1);
         color: #fff;
         border-color: rgba(255, 255, 255, 0.3);
     }
 
-    .trainer-form-container input::placeholder {
+    .trainer_form_container input::placeholder {
         color: rgba(255, 255, 255, 0.6);
     }
 
-    .trainer-form-container input:focus {
+    .trainer_form_container input:focus {
         background: rgba(255, 255, 255, 0.15);
     }
 }
@@ -316,8 +316,8 @@
 /**
  * Focus visible pour navigation clavier
  */
-.trainer-form-container input:focus-visible,
-.trainer-form-container button:focus-visible {
+.trainer_form_container input:focus-visible,
+.trainer_form_container button:focus-visible {
     outline: 3px solid #ffd700;
     outline-offset: 2px;
 }

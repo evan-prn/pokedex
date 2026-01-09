@@ -5,7 +5,7 @@
 import React, {useState, type FormEvent} from 'react';
 import type { ITrainer } from '../../types/ITrainer.ts';
 
-import '../css/TrainerForm.css'
+import style from './TrainerForm.module.css';
 
 interface TrainerFormProps {
     onAddTrainer: (trainer: ITrainer) => void;
@@ -19,7 +19,7 @@ const TrainerForm = ({ onAddTrainer }: TrainerFormProps) => {
     // État local du formulaire
     const [trainer, setTrainer] = useState<ITrainer>({
         trainerName: '',
-        trainerStarter: '',
+        trainerPassword: '',
     });
 
     /**
@@ -43,14 +43,13 @@ const TrainerForm = ({ onAddTrainer }: TrainerFormProps) => {
         // Réinitialisation du formulaire
         setTrainer({
             trainerName: '',
-            trainerStarter: '',
+            trainerPassword: '',
         });
     };
 
     return (
         <>
-            <div className={`trainer-form-container`}>
-                <h2>Register Trainers</h2>
+            <div className={style.trainer_form_container}>
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"
@@ -63,16 +62,16 @@ const TrainerForm = ({ onAddTrainer }: TrainerFormProps) => {
                     />
                     <input
                         type="text"
-                        placeholder="Starter du dresseur"
-                        name="trainerStarter"
-                        value={trainer.trainerStarter}
+                        placeholder="Mot de passe"
+                        name="trainerPassword"
+                        value={trainer.trainerPassword}
                         onChange={handleChange}
                         required
-                        aria-label="Starter du dresseur"
+                        aria-label="Mot de passe"
                     />
 
                     <button type="submit" aria-label="Ajouter le dresseur">
-                        Ajouter dresseur
+                        Log in
                     </button>
                 </form>
             </div>

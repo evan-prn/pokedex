@@ -1,0 +1,177 @@
+/**
+ * PokemonCard.module.css
+ *
+ * Styles pour la carte d'affichage d'un Pokémon individuel
+ */
+
+/* ==================== CARTE PRINCIPALE ==================== */
+
+/**
+ * Conteneur principal de la carte Pokémon
+ */
+.pokemon_card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    background: white;
+
+    /* Améliorations pour un meilleur rendu */
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/**
+ * Effet hover sur la carte
+ */
+.pokemon_card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    border-color: #667eea;
+}
+
+/* ==================== NUMÉRO POKÉDEX ==================== */
+
+/**
+ * Numéro du Pokédex affiché en haut de la carte
+ */
+.pokedex_number {
+    color: #999;
+    font-size: 0.8rem;
+    margin: 0 0 0.5rem 0;
+    font-weight: 600;
+}
+
+/* ==================== SPRITE ==================== */
+
+/**
+ * Image sprite du Pokémon
+ */
+.pokemon_sprite {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+/**
+ * Animation du sprite au hover de la carte
+ */
+.pokemon_card:hover .pokemon_sprite {
+    transform: scale(1.1);
+}
+
+/* ==================== NOM ==================== */
+
+/**
+ * Nom du Pokémon
+ */
+.pokemon_name {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+}
+
+.pokemon_name strong {
+    color: #333;
+    font-weight: 700;
+}
+
+/* ==================== TYPES ==================== */
+
+/**
+ * Conteneur des badges de types
+ */
+.pokemon_types {
+    display: flex;
+    gap: 0.25rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+}
+
+/**
+ * Badge individuel de type
+ */
+.type_badge {
+    background: #e5e7eb;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    margin: 0 2px;
+    display: inline-block;
+    font-weight: 600;
+    color: #4b5563;
+    text-transform: capitalize;
+    transition: all 0.2s ease;
+}
+
+/**
+ * Effet hover sur les badges de type
+ */
+.type_badge:hover {
+    background: #d1d5db;
+    transform: scale(1.05);
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+/**
+ * Tablettes (max 768px)
+ */
+@media (max-width: 768px) {
+    .pokemon_card {
+        padding: 8px;
+    }
+
+    .pokemon_sprite {
+        width: 80px;
+        height: 80px;
+    }
+
+    .pokemon_name {
+        font-size: 0.875rem;
+    }
+
+    .type_badge {
+        font-size: 0.688rem;
+        padding: 2px 6px;
+    }
+}
+
+/**
+ * Mobiles (max 480px)
+ */
+@media (max-width: 480px) {
+    .pokemon_card {
+        padding: 6px;
+        border-radius: 6px;
+    }
+
+    .pokedex_number {
+        font-size: 0.75rem;
+    }
+
+    .pokemon_sprite {
+        width: 70px;
+        height: 70px;
+    }
+
+    .pokemon_name {
+        font-size: 0.813rem;
+    }
+
+    .type_badge {
+        font-size: 0.625rem;
+        padding: 1px 5px;
+    }
+}
+
+/* ==================== ACCESSIBILITÉ ==================== */
+
+/**
+ * Focus visible pour navigation clavier
+ */
+.pokemon_card:focus-within {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}

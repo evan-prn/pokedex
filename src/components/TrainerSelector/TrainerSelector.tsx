@@ -3,8 +3,9 @@
  */
 
 import type {ITrainer} from '../../types/ITrainer.ts'
-import type {JSX} from "react";
-import '../css/TrainerSelector.css';
+import React, {type JSX} from "react";
+
+import style from './TrainerSelector.module.css';
 
 interface TrainerSelectorProps {
 
@@ -41,11 +42,11 @@ const TrainerSelector = ({trainers, onSelectTrainer, selectedTrainer}: TrainerSe
     };
 
     return (
-        <div className="trainer-selector-container">
-            <label htmlFor="trainer-select">Dresseur :</label>
+        <div className={style.trainer_selector_container}>
+            <label htmlFor={style.trainer_select}>Dresseur :</label>
 
             <select
-                id="trainer-select"
+                id={style.trainer_select}
                 onChange={handleChange}
                 value={selectedTrainer?.trainerName || ''}
                 disabled={trainers.length === 0}
@@ -57,7 +58,7 @@ const TrainerSelector = ({trainers, onSelectTrainer, selectedTrainer}: TrainerSe
                         key={index}
                         value={trainer.trainerName}
                     >
-                        {trainer.trainerName} - {trainer.trainerStarter}
+                        {trainer.trainerName} - {trainer.trainerPassword}
                     </option>
                 ))}
             </select>

@@ -1,5 +1,5 @@
 /**
- * CurrentTrainer.css
+ * CurrentTrainer.module.css
  *
  * Styles pour la carte du dresseur actuel
  */
@@ -108,7 +108,7 @@
 /**
  * Affichage quand aucun dresseur n'est sélectionné
  */
-.current-trainer-container.empty {
+.current-trainer-container_empty {
     min-height: 150px;
 }
 

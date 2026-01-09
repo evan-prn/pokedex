@@ -1,27 +1,39 @@
 /**
  * Navbar.tsx
+ * Composant de navigation contenant le formulaire et le sélecteur de dresseurs
  */
 
 import { useState } from "react";
+import type { ITrainer } from "../types/ITrainer.ts";
+
 import TrainerForm from "./TrainerForm.tsx";
 import TrainerSelector from "./TrainerSelector.tsx";
-import CurrentTrainer from "./CurrentTrainer.tsx";
-import type { ITrainer } from "../types/ITrainer.ts";
-import '../css/Navbar.css';
 
-const Navbar = () => {
+import '../css/Navbar.module.css';
+
+/**
+ * Props de la Navbar
+ * @property {ITrainer | null} selectedTrainer - Le dresseur actuellement sélectionné
+ * @property {function} onTrainerSelect - Callback pour changer le dresseur sélectionné
+ */
+interface NavbarProps {
+    selectedTrainer: ITrainer | null;
+    onTrainerSelect: (trainer: ITrainer | null) => void;
+}
+
+/**
+ * Composant Navbar
+ * Gère l'affichage du formulaire de création et du sélecteur de dresseurs
+ * Le state selectedTrainer est géré par le parent (App)
+ * Le state trainers est géré localement
+ */
+const Navbar = ({ selectedTrainer, onTrainerSelect }: NavbarProps) => {
 
     /**
      * État contenant la liste complète des dresseurs
      * C'est l'état partagé entre TrainerForm et TrainerSelector
      */
     const [trainers, setTrainers] = useState<ITrainer[]>([]);
-
-    /**
-     * État pour le dresseur actuellement sélectionné
-     * Null si aucun dresseur n'est sélectionné
-     */
-    const [selectedTrainer, setSelectedTrainer] = useState<ITrainer | null>(null);
 
     /**
      * Fonction pour ajouter un nouveau dresseur à la liste
@@ -38,36 +50,18 @@ const Navbar = () => {
         console.log('Liste actuelle:', [...trainers, newTrainer]);
     };
 
-    /**
-     * Fonction pour gérer la sélection d'un dresseur
-     * Appelée par TrainerSelector lors du changement de sélection
-     *
-     * @param {ITrainer} trainer - Le dresseur sélectionné
-     */
-    const handleSelectTrainer = (trainer: ITrainer) => {
-        setSelectedTrainer(trainer);
-        console.log('Dresseur sélectionné:', trainer);
-    };
-
     return (
-        <>
-            <nav className="navbar">
-                {/* Formulaire d'ajout de dresseur */}
-                <TrainerForm onAddTrainer={handleAddTrainer} />
+        <nav className="navbar">
+            {/* TrainerForm ajoute les dresseurs à la liste locale */}
+            <TrainerForm onAddTrainer={handleAddTrainer} />
 
-                {/* Sélecteur de dresseur */}
-                <TrainerSelector
-                    trainers={trainers}
-                    onSelectTrainer={handleSelectTrainer}
-                    selectedTrainer={selectedTrainer}
-                />
-
-                {/* Affichage du dresseur actuel sous la navbar */}
-                <CurrentTrainer trainer={selectedTrainer} />
-            </nav>
-
-
-        </>
+            {/* TrainerSelector affiche la liste et permet la sélection */}
+            <TrainerSelector
+                trainers={trainers}
+                selectedTrainer={selectedTrainer}
+                onSelectTrainer={onTrainerSelect}
+            />
+        </nav>
     );
 }
 

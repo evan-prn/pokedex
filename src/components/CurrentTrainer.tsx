@@ -6,7 +6,7 @@
  */
 
 import type { ITrainer } from '../types/ITrainer';
-import '../css/CurrentTrainer.css';
+import style  from '../css/CurrentTrainer.module.css';
 import type {JSX} from "react";
 
 /**
@@ -28,8 +28,8 @@ const CurrentTrainer = ({ trainer }: CurrentTrainerProps): JSX.Element => {
     // Si aucun dresseur n'est sélectionné, afficher un message
     if (!trainer) {
         return (
-            <div className="current-trainer-container empty">
-                <p className="empty-message">
+            <div className={`${style.current-trainer-container} ${style.current-trainer-container empty}`}>
+                <p className={style.empty-message}>
                     Aucun dresseur sélectionné
                 </p>
             </div>
@@ -38,21 +38,21 @@ const CurrentTrainer = ({ trainer }: CurrentTrainerProps): JSX.Element => {
 
     // Affichage du dresseur sélectionné
     return (
-        <div className="current-trainer-container">
-            <div className="trainer-card">
-                <div className="trainer-header">
+        <div className={style.current-trainer-container}>
+            <div className={style.trainer-card}>
+                <div className={style.trainer-header}>
                     <h3>Dresseur actuel</h3>
                 </div>
 
-                <div className="trainer-info">
-                    <div className="info-row">
-                        <span className="label">Nom :</span>
-                        <span className="value">{trainer.trainerName}</span>
+                <div className={style.trainer-info}>
+                    <div className={style.info-row}>
+                        <span className={style.label}>Nom :</span>
+                        <span className={style.value}>{trainer.trainerName}</span>
                     </div>
 
-                    <div className="info-row">
-                        <span className="label">Starter :</span>
-                        <span className="value">{trainer.trainerStarter}</span>
+                    <div className={style.info-row}>
+                        <span className={style.label}>Starter :</span>
+                        <span className={style.value}>{trainer.trainerStarter}</span>
                     </div>
                 </div>
             </div>

@@ -15,6 +15,10 @@ interface PokemonCardProps {
  * Cliquable pour naviguer vers la page de détail
  */
 const PokemonCard = ({ pokemon }: PokemonCardProps) => {
+
+    /**
+     * Permet la navigation
+     */
     const navigate = useNavigate();
 
     /**
@@ -25,22 +29,10 @@ const PokemonCard = ({ pokemon }: PokemonCardProps) => {
         navigate(`/pokemon/${pokemon.pokedex_id}`);
     };
 
-    /**
-     * Gère la navigation au clavier (accessibilité)
-     * @param {React.KeyboardEvent} e - Événement clavier
-     */
-    const handleKeyDown = (e: React.KeyboardEvent) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            handleClick();
-        }
-    };
-
     return (
         <div
             className={style.pokemon_card}
             onClick={handleClick}
-            onKeyDown={handleKeyDown}
             role="button"
             tabIndex={0}
             aria-label={`Voir les détails de ${pokemon.name?.fr || 'ce Pokémon'}`}

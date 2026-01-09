@@ -2,7 +2,7 @@
  * TrainerSelector.tsx
  */
 
-import type {ITrainer} from '../types/ITrainer.ts'
+import type {ITrainer} from '../../types/ITrainer.ts'
 import type {JSX} from "react";
 import '../css/TrainerSelector.css';
 

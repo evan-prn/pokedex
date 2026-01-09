@@ -3,7 +3,7 @@
  */
 
 import React, {useState, type FormEvent} from 'react';
-import type { ITrainer } from '../types/ITrainer.ts';
+import type { ITrainer } from '../../types/ITrainer.ts';
 
 import '../css/TrainerForm.css'
 

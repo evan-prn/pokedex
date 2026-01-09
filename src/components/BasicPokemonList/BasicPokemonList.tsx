@@ -12,9 +12,9 @@
  */
 
 import {useState, useEffect, type JSX} from 'react';
-import { GetPokemonListByAPI } from '../api/TyradexAPI';
-import PokemonCard from './PokemonCard'; // ✅ Import default
-import type { IPokemon } from '../types/IPokemon.ts';
+import { GetPokemonListByAPI } from '../../api/TyradexAPI.ts';
+import PokemonCard from '../PokemonCard/PokemonCard.tsx'; // ✅ Import default
+import type { IPokemon } from '../../types/IPokemon.ts';
 
 /**
  * Composant principal affichant la liste complète des Pokémon sous forme de grille.

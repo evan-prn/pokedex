@@ -1,4 +1,4 @@
-import type { IPokemon } from '../types/IPokemon.ts';
+import type { IPokemon } from '../../types/IPokemon.ts';
 
 /**
  * Composant carte individuelle pour un Pokémon.

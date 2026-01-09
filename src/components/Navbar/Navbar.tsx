@@ -4,10 +4,10 @@
  */
 
 import { useState } from "react";
-import type { ITrainer } from "../types/ITrainer.ts";
+import type { ITrainer } from "../../types/ITrainer.ts";
 
-import TrainerForm from "./TrainerForm.tsx";
-import TrainerSelector from "./TrainerSelector.tsx";
+import TrainerForm      from "../TrainerForm/TrainerForm.tsx";
+import TrainerSelector  from "../TrainerSelector/TrainerSelector.tsx";
 
 import '../css/Navbar.module.css';
 

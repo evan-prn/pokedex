@@ -1,11 +1,10 @@
 import { useState } from "react";
 import type { ITrainer } from "./types/ITrainer.ts";
 
-import BasicPokemonList from "./components/BasicPokemonList";
-import CurrentTrainer from "./components/CurrentTrainer/CurrentTrainer.tsx";
-import Navbar from "./components/Navbar.tsx";
+import BasicPokemonList from "./components/BasicPokemonList/BasicPokemonList.tsx";
+import CurrentTrainer   from "./components/CurrentTrainer/CurrentTrainer.tsx";
+import Navbar           from "./components/Navbar/Navbar.tsx";
 
-import "./App.css";
 import "./api/TyradexAPI.ts";
 
 /**

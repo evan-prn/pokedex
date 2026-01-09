@@ -6,7 +6,7 @@
 
 /* ==================== CONTENEUR PRINCIPAL ==================== */
 
-.current-trainer-container {
+.current_trainer_container {
     padding: 2rem;
     display: flex;
     justify-content: center;
@@ -19,7 +19,7 @@
 /**
  * Carte principale avec effet glassmorphism
  */
-.trainer-card {
+.trainer_card {
     background: linear-gradient(
             135deg,
             rgba(255, 255, 255, 0.9) 0%,
@@ -43,7 +43,7 @@
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.trainer-card:hover {
+.trainer_card:hover {
     transform: translateY(-5px);
     box-shadow:
             0 12px 40px rgba(0, 0, 0, 0.15),
@@ -52,14 +52,14 @@
 
 /* ==================== EN-TÊTE ==================== */
 
-.trainer-header {
+.trainer_header {
     text-align: center;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
     border-bottom: 2px solid rgba(102, 126, 234, 0.3);
 }
 
-.trainer-header h3 {
+.trainer_header h3 {
     margin: 0;
     font-size: 1.5rem;
     font-weight: 700;
@@ -70,13 +70,13 @@
 
 /* ==================== INFORMATIONS ==================== */
 
-.trainer-info {
+.trainer_info {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-.info-row {
+.info_row {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -86,18 +86,18 @@
     transition: all 0.3s ease;
 }
 
-.info-row:hover {
+.info_row:hover {
     background: rgba(102, 126, 234, 0.15);
     transform: translateX(5px);
 }
 
-.info-row .label {
+.info_row .label {
     font-weight: 600;
     color: #667eea;
     font-size: 0.938rem;
 }
 
-.info-row .value {
+.info_row .value {
     font-weight: 700;
     color: #333;
     font-size: 1.125rem;
@@ -108,11 +108,11 @@
 /**
  * Affichage quand aucun dresseur n'est sélectionné
  */
-.current-trainer-container_empty {
+.current_trainer_container_empty {
     min-height: 150px;
 }
 
-.empty-message {
+.empty_message {
     font-size: 1.125rem;
     color: #999;
     font-style: italic;
@@ -129,20 +129,20 @@
  * Tablettes (max 768px)
  */
 @media (max-width: 768px) {
-    .current-trainer-container {
+    .current_trainer_container {
         padding: 1.5rem 1rem;
     }
 
-    .trainer-card {
+    .trainer_card {
         min-width: unset;
         padding: 1.5rem;
     }
 
-    .trainer-header h3 {
+    .trainer_header h3 {
         font-size: 1.25rem;
     }
 
-    .info-row .value {
+    .info_row .value {
         font-size: 1rem;
     }
 }
@@ -151,26 +151,26 @@
  * Mobiles (max 480px)
  */
 @media (max-width: 480px) {
-    .trainer-card {
+    .trainer_card {
         padding: 1.25rem;
     }
 
-    .trainer-header {
+    .trainer_header {
         margin-bottom: 1rem;
     }
 
-    .trainer-header h3 {
+    .trainer_header h3 {
         font-size: 1.125rem;
     }
 
-    .info-row {
+    .info_row {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.5rem;
     }
 
-    .info-row .label,
-    .info-row .value {
+    .info_row .label,
+    .info_row .value {
         font-size: 0.938rem;
     }
 }

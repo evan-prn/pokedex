@@ -4,6 +4,7 @@ import App                  from '../App';
 import RootLayout           from './RootLayout.tsx';
 import PokemonDetailedView  from "../components/PokemonDetailedView/PokemonDetailedView.tsx";
 import NotFound             from "../components/NotFound/NotFound.tsx";
+import TrainerForm          from "../components/TrainerForm/TrainerForm.tsx";
 
 /**
  *
@@ -22,6 +23,12 @@ const myRoutes: RouteObject[] = [
                 path: 'pokemon/:pokeId',
                 element: <PokemonDetailedView />,
             },
+
+            {
+                path: 'login',
+                element: <TrainerForm />,
+            },
+
             {
                 path: '*',
                 element: <NotFound />

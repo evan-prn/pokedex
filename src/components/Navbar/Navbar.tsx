@@ -1,77 +1,47 @@
 /**
  * Navbar.tsx
- * Composant de navigation contenant le formulaire et le sélecteur de dresseurs
+ * Navbar simplifiée avec juste un bouton de connexion
  */
 
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import type { ITrainer } from "../../types/ITrainer.ts";
-
-import TrainerForm      from "../TrainerForm/TrainerForm.tsx";
-import TrainerSelector  from "../TrainerSelector/TrainerSelector.tsx";
 
 import style from './Navbar.module.css';
 
-/**
- * Props de la Navbar
- * @property {ITrainer | null} selectedTrainer - Le dresseur actuellement sélectionné
- * @property {function} onTrainerSelect - Callback pour changer le dresseur sélectionné
- */
 interface NavbarProps {
     selectedTrainer: ITrainer | null;
-    onTrainerSelect: (trainer: ITrainer | null) => void;
 }
 
-/**
- * Composant Navbar
- * Gère l'affichage du formulaire de création et du sélecteur de dresseurs
- * Le state selectedTrainer est géré par le parent (App)
- * Le state trainers est géré localement
- */
-const Navbar = ({ selectedTrainer, onTrainerSelect }: NavbarProps) => {
+const Navbar = ({ selectedTrainer }: NavbarProps) => {
+    const navigate = useNavigate();
 
     /**
-     * État contenant la liste complète des dresseurs
-     * C'est l'état partagé entre TrainerForm et TrainerSelector
+     * Gère le clic sur le bouton de connexion
      */
-    const [trainers, setTrainers] = useState<ITrainer[]>([]);
-
-    /**
-     * Fonction pour ajouter un nouveau dresseur à la liste
-     * Appelée par TrainerForm lors de la soumission
-     *
-     * @param {ITrainer} newTrainer - Le nouveau dresseur à ajouter
-     */
-    const handleAddTrainer = (newTrainer: ITrainer) => {
-        // Ajout du nouveau dresseur à la liste existante
-        setTrainers([...trainers, newTrainer]);
-
-        // Log pour debug (peut être retiré en production)
-        console.log('Dresseur ajouté:', newTrainer);
-        console.log('Liste actuelle:', [...trainers, newTrainer]);
+    const handleLoginClick = () => {
+        navigate('/login');
     };
 
     return (
         <nav className={style.navbar}>
-
             <div className={style.navbar_icon}>
-                <img
-                    src="/pokeball.png"
-                    alt="Pokéball icon"
-                />
+                <img src="/pokeball.png" alt="Pokéball icon" />
             </div>
+
             <h1 className={style.navbar_title}>Poké-Tracker</h1>
 
-            {/* TrainerForm ajoute les dresseurs à la liste locale */}
-            <TrainerForm onAddTrainer={handleAddTrainer} />
-
-            {/* TrainerSelector affiche la liste et permet la sélection */}
-            <TrainerSelector
-                trainers={trainers}
-                selectedTrainer={selectedTrainer}
-                onSelectTrainer={onTrainerSelect}
-            />
+            {/* Bouton de connexion uniquement si pas connecté */}
+            {!selectedTrainer && (
+                <button
+                    onClick={handleLoginClick}
+                    className={style.login_button}
+                    aria-label="Se connecter"
+                >
+                    Connexion
+                </button>
+            )}
         </nav>
     );
-}
+};
 
 export default Navbar;

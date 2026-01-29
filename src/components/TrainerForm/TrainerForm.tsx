@@ -2,19 +2,23 @@
  * TrainerForm.tsx
  */
 
-import React, {useState, type FormEvent} from 'react';
+import React, { useState, type FormEvent } from 'react';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import type { ITrainer } from '../../types/ITrainer.ts';
 
 import style from './TrainerForm.module.css';
 
-interface TrainerFormProps {
-    onAddTrainer: (trainer: ITrainer) => void;
+interface OutletContext {
+    selectedTrainer: ITrainer | null;
+    setSelectedTrainer: (trainer: ITrainer | null) => void;
 }
 
 /**
  * Formulaire d'enregistrement d'un nouveau dresseur Pokémon
  */
-const TrainerForm = ({ onAddTrainer }: TrainerFormProps) => {
+const TrainerForm = () => {
+    const navigate = useNavigate();
+    const { setSelectedTrainer } = useOutletContext<OutletContext>();
 
     // État local du formulaire
     const [trainer, setTrainer] = useState<ITrainer>({
@@ -39,7 +43,13 @@ const TrainerForm = ({ onAddTrainer }: TrainerFormProps) => {
      */
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        onAddTrainer(trainer);
+
+        // Met à jour le dresseur sélectionné dans le contexte parent
+        setSelectedTrainer(trainer);
+
+        // Redirige vers la page d'accueil
+        navigate('/');
+
         // Réinitialisation du formulaire
         setTrainer({
             trainerName: '',
@@ -50,6 +60,7 @@ const TrainerForm = ({ onAddTrainer }: TrainerFormProps) => {
     return (
         <>
             <div className={style.trainer_form_container}>
+                <h2>Connexion</h2>
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"
@@ -61,7 +72,7 @@ const TrainerForm = ({ onAddTrainer }: TrainerFormProps) => {
                         aria-label="Nom du dresseur"
                     />
                     <input
-                        type="text"
+                        type="password"
                         placeholder="Mot de passe"
                         name="trainerPassword"
                         value={trainer.trainerPassword}
@@ -70,13 +81,13 @@ const TrainerForm = ({ onAddTrainer }: TrainerFormProps) => {
                         aria-label="Mot de passe"
                     />
 
-                    <button type="submit" aria-label="Ajouter le dresseur">
-                        Log in
+                    <button type="submit" aria-label="Se connecter">
+                        Se connecter
                     </button>
                 </form>
             </div>
         </>
-    )
+    );
 }
 
 export default TrainerForm;

@@ -1,102 +1,183 @@
 /**
- * TrainerForm.css
+ * TrainerForm.module.css
  *
- * Styles spécifiques au formulaire d'enregistrement de dresseur
- * Les styles globaux de la navbar sont dans Navbar.module.css
+ * Styles pour la page de connexion avec formulaire centré
  */
 
-/* ==================== CONTENEUR DU FORMULAIRE ==================== */
+/* ==================== PAGE DE CONNEXION ==================== */
 
 /**
- * Conteneur du formulaire (sans background, géré par .navbar)
+ * Conteneur plein écran avec dégradé de fond
  */
 .trainer_form_container {
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    justify-content: center;
+    padding: 2rem;
+    gap: 2rem;
+
+    /* Dégradé de fond similaire à la navbar */
+    background: linear-gradient(
+            135deg,
+            rgba(102, 126, 234, 1) 0%,
+            rgba(118, 75, 162, 1) 100%
+    );
+
+    /* Animation de fond subtile */
     position: relative;
-    z-index: 1;
+    overflow: hidden;
+}
+
+/**
+ * Effet de brillance animé en arrière-plan
+ */
+.trainer_form_container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+            45deg,
+            transparent,
+            rgba(255, 255, 255, 0.05),
+            transparent
+    );
+    animation: shine 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes shine {
+    0%, 100% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    50% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
 }
 
 /* ==================== TITRE ==================== */
 
 /**
- * Titre avec effet néon subtil
+ * Titre avec effet néon
  */
 .trainer_form_container h2 {
     margin: 0;
-    font-size: 1.125rem;
-    font-weight: 700;
+    font-size: 2.5rem;
+    font-weight: 800;
     color: #ffffff;
-    white-space: nowrap;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     text-transform: uppercase;
     text-shadow:
-            0 0 10px rgba(255, 255, 255, 0.5),
-            0 2px 4px rgba(0, 0, 0, 0.3);
+            0 0 20px rgba(255, 255, 255, 0.8),
+            0 0 40px rgba(255, 215, 0, 0.6),
+            0 4px 8px rgba(0, 0, 0, 0.3);
+    animation: titleGlow 2s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes titleGlow {
+    0%, 100% {
+        text-shadow:
+                0 0 20px rgba(255, 255, 255, 0.8),
+                0 0 40px rgba(255, 215, 0, 0.6),
+                0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        text-shadow:
+                0 0 30px rgba(255, 255, 255, 1),
+                0 0 60px rgba(255, 215, 0, 0.8),
+                0 4px 8px rgba(0, 0, 0, 0.3);
+    }
 }
 
 /* ==================== FORMULAIRE ==================== */
 
 /**
- * Formulaire en ligne
+ * Conteneur du formulaire avec glassmorphism
  */
 .trainer_form_container form {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
     margin: 0;
+    padding: 3rem;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 450px;
+
+    /* Effet glassmorphism */
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    box-shadow:
+            0 8px 32px rgba(31, 38, 135, 0.4),
+            0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+
+    /* Animation d'entrée */
+    animation: slideInScale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes slideInScale {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 /* ==================== INPUTS ==================== */
 
 /**
- * Inputs avec design glassmorphism
+ * Inputs avec design moderne
  */
 .trainer_form_container input {
-    padding: 0.75rem 1.25rem;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 1rem 1.5rem;
+    border: 2px solid rgba(102, 126, 234, 0.3);
     border-radius: 12px;
-    font-size: 0.938rem;
+    font-size: 1rem;
 
-    /* Effet verre */
     background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-
     color: #333;
     font-family: inherit;
     font-weight: 500;
 
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    min-width: 180px;
 
-    box-shadow:
-            0 4px 6px rgba(0, 0, 0, 0.1),
-            inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 /**
- * État focus avec effet néon doré
+ * État focus avec effet violet
  */
 .trainer_form_container input:focus {
     outline: none;
-    border-color: #ffd700;
+    border-color: #667eea;
     background: rgba(255, 255, 255, 1);
 
     box-shadow:
-            0 0 0 4px rgba(255, 215, 0, 0.3),
-            0 8px 16px rgba(255, 215, 0, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            0 0 0 4px rgba(102, 126, 234, 0.15),
+            0 8px 16px rgba(102, 126, 234, 0.2);
 
-    transform: translateY(-2px) scale(1.02);
+    transform: translateY(-2px);
 }
 
 /**
  * Placeholder stylisé
  */
 .trainer_form_container input::placeholder {
-    color: #666;
+    color: #999;
     font-weight: 400;
 }
 
@@ -104,7 +185,7 @@
  * État hover
  */
 .trainer_form_container input:hover {
-    border-color: rgba(255, 215, 0, 0.5);
+    border-color: rgba(102, 126, 234, 0.5);
     transform: translateY(-1px);
 }
 
@@ -114,14 +195,15 @@
  * Bouton premium avec dégradé animé
  */
 .trainer_form_container button {
-    padding: 0.75rem 1.75rem;
+    padding: 1rem 2rem;
     border: none;
     border-radius: 12px;
-    font-size: 0.938rem;
+    font-size: 1rem;
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: #333;
+    margin-top: 0.5rem;
 
     /* Dégradé doré premium */
     background: linear-gradient(
@@ -224,21 +306,13 @@
  * Tablettes (max 992px)
  */
 @media (max-width: 992px) {
-    .trainer_form_container {
-        gap: 0.75rem;
-    }
-
     .trainer_form_container h2 {
-        font-size: 1rem;
+        font-size: 2rem;
     }
 
-    .trainer_form_container input {
-        min-width: 150px;
-        padding: 0.625rem 1rem;
-    }
-
-    .trainer_form_container button {
-        padding: 0.625rem 1.25rem;
+    .trainer_form_container form {
+        padding: 2.5rem;
+        max-width: 400px;
     }
 }
 
@@ -247,31 +321,15 @@
  */
 @media (max-width: 768px) {
     .trainer_form_container {
-        flex-direction: column;
-        width: 100%;
-        gap: 1rem;
+        padding: 1.5rem;
     }
 
     .trainer_form_container h2 {
-        width: 100%;
-        text-align: center;
+        font-size: 1.75rem;
     }
 
     .trainer_form_container form {
-        width: 100%;
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-
-    .trainer_form_container input {
-        width: 100%;
-        min-width: unset;
-    }
-
-    .trainer_form_container button {
-        width: 100%;
-        padding: 0.875rem;
-        font-size: 1rem;
+        padding: 2rem 1.5rem;
     }
 }
 
@@ -280,13 +338,17 @@
  */
 @media (max-width: 480px) {
     .trainer_form_container h2 {
-        font-size: 0.938rem;
+        font-size: 1.5rem;
+    }
+
+    .trainer_form_container form {
+        padding: 1.75rem 1.25rem;
+        border-radius: 20px;
     }
 
     .trainer_form_container input,
     .trainer_form_container button {
-        font-size: 0.875rem;
-        border-radius: 10px;
+        font-size: 0.938rem;
     }
 }
 
@@ -296,18 +358,8 @@
  * Support du dark mode système
  */
 @media (prefers-color-scheme: dark) {
-    .trainer_form_container input {
-        background: rgba(255, 255, 255, 0.1);
-        color: #fff;
-        border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .trainer_form_container input::placeholder {
-        color: rgba(255, 255, 255, 0.6);
-    }
-
-    .trainer_form_container input:focus {
-        background: rgba(255, 255, 255, 0.15);
+    .trainer_form_container form {
+        background: rgba(255, 255, 255, 0.95);
     }
 }
 
@@ -320,4 +372,17 @@
 .trainer_form_container button:focus-visible {
     outline: 3px solid #ffd700;
     outline-offset: 2px;
+}
+
+/**
+ * Mode accessibilité réduit
+ */
+@media (prefers-reduced-motion: reduce) {
+    .trainer_form_container,
+    .trainer_form_container *,
+    .trainer_form_container::before,
+    .trainer_form_container h2 {
+        animation: none !important;
+        transition: none !important;
+    }
 }

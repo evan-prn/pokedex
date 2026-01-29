@@ -1,0 +1,190 @@
+/**
+ * AuthButtons.module.css
+ * Styles pour les boutons d'authentification
+ */
+
+/* ==================== CONTENEUR DES BOUTONS ==================== */
+
+.auth_buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* ==================== STYLES COMMUNS DES BOUTONS ==================== */
+
+.login_button,
+.register_button,
+.logout_button {
+    padding: 0.75rem 1.75rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.938rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* ==================== BOUTON DE CONNEXION ==================== */
+
+.login_button {
+    color: #333;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
+    background-size: 200% 200%;
+    box-shadow:
+            0 4px 15px rgba(255, 215, 0, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.login_button:hover {
+    background-position: 100% 50%;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow:
+            0 8px 25px rgba(255, 215, 0, 0.6),
+            0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+/* Effet de brillance */
+.login_button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.4),
+            transparent
+    );
+    transition: left 0.6s ease;
+}
+
+.login_button:hover::before {
+    left: 100%;
+}
+
+.login_button:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+/* ==================== BOUTON D'INSCRIPTION ==================== */
+
+.register_button {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.register_button:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.register_button:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+/* ==================== BOUTON DE DÉCONNEXION ==================== */
+
+.logout_button {
+    color: #ffffff;
+    background: rgba(255, 59, 48, 0.8);
+    border: 2px solid rgba(255, 59, 48, 0.6);
+    box-shadow: 0 4px 15px rgba(255, 59, 48, 0.3);
+}
+
+.logout_button:hover {
+    background: rgba(255, 59, 48, 1);
+    border-color: rgba(255, 59, 48, 0.8);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow:
+            0 8px 25px rgba(255, 59, 48, 0.5),
+            0 0 20px rgba(255, 59, 48, 0.3);
+}
+
+.logout_button:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+/**
+ * Tablettes (max 992px)
+ */
+@media (max-width: 992px) {
+    .auth_buttons {
+        gap: 0.5rem;
+    }
+
+    .login_button,
+    .register_button,
+    .logout_button {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.875rem;
+    }
+}
+
+/**
+ * Mobile (max 768px)
+ */
+@media (max-width: 768px) {
+    .auth_buttons {
+        gap: 0.5rem;
+    }
+
+    .login_button,
+    .register_button,
+    .logout_button {
+        padding: 0.625rem 1rem;
+        font-size: 0.813rem;
+    }
+}
+
+/**
+ * Petits mobiles (max 480px)
+ */
+@media (max-width: 480px) {
+    .auth_buttons {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+    }
+
+    .login_button,
+    .register_button,
+    .logout_button {
+        width: 100%;
+        padding: 0.75rem;
+    }
+}
+
+/* ==================== ACCESSIBILITÉ ==================== */
+
+.login_button:focus-visible,
+.register_button:focus-visible,
+.logout_button:focus-visible {
+    outline: 3px solid #ffd700;
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .login_button,
+    .register_button,
+    .logout_button,
+    .login_button::before {
+        animation: none !important;
+        transition: none !important;
+    }
+}

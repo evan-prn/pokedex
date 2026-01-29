@@ -4,7 +4,8 @@ import App                  from '../App';
 import RootLayout           from './RootLayout.tsx';
 import PokemonDetailedView  from "../components/PokemonDetailedView/PokemonDetailedView.tsx";
 import NotFound             from "../components/NotFound/NotFound.tsx";
-import TrainerForm          from "../components/TrainerForm/TrainerForm.tsx";
+import LoginForm            from "../components/Auth/LoginForm/LoginForm.tsx";
+import RegisterForm         from "../components/Auth/RegisterForm/RegisterForm.tsx";
 
 /**
  *
@@ -18,17 +19,18 @@ const myRoutes: RouteObject[] = [
                 index: true,
                 element: <App />,
             },
-
             {
                 path: 'pokemon/:pokeId',
                 element: <PokemonDetailedView />,
             },
-
             {
                 path: 'login',
-                element: <TrainerForm />,
+                element: <LoginForm />,
             },
-
+            {
+                path: 'register',
+                element: <RegisterForm />,
+            },
             {
                 path: '*',
                 element: <NotFound />

@@ -1,5 +1,5 @@
 import { type JSX, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {useAppDispatch, useAppSelector} from "../../hooks/hooks.ts";
 import type { RootState } from '../../store/store.ts';
 import { setGeneration } from '../../store/slices/generation-slice.ts';
 import { useGetGenerationListQuery } from "../../api/pokemonAPI.ts";
@@ -10,8 +10,8 @@ const GenerationCarousel = (): JSX.Element => {
     // Récupération des générations depuis l'API
     const { data: generations = [], isLoading, isError } = useGetGenerationListQuery();
 
-    const dispatch = useDispatch();
-    const activeGen = useSelector((state: RootState) => state.generation.currentGen);
+    const dispatch = useAppDispatch();
+    const activeGen = useAppSelector((state: RootState) => state.generation.currentGen);
     const scrollRef = useRef<HTMLDivElement>(null);
 
     const scroll = (direction: 'left' | 'right') => {

@@ -5,8 +5,6 @@ import BasicPokemonList from "./components/BasicPokemonList/BasicPokemonList.tsx
 import GenerationCarousel from "./components/GenerationCarousel/GenerationCarousel.tsx";
 import CurrentTrainer   from "./components/CurrentTrainer/CurrentTrainer.tsx";
 
-import "./api/TyradexAPI.ts";
-
 interface OutletContext {
   selectedTrainer: ITrainer | null;
   setSelectedTrainer: (trainer: ITrainer | null) => void;

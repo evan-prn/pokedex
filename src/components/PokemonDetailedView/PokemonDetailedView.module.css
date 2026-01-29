@@ -294,6 +294,158 @@
     transform: translateY(-3px);
 }
 
+/* ==================== BOUTON TOGGLE SHINY ==================== */
+
+.shiny_toggle {
+    margin-top: 1rem;
+    padding: 0.75rem 1.25rem;
+    border: 3px solid #1a1a1a;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 0.875rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    /* Style normal (gris) */
+    background: linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #f0f0f0 50%,
+            #ffffff 100%
+    );
+    color: #1a1a1a;
+
+    box-shadow:
+            0 4px 0 #999,
+            0 6px 15px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+    transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    text-shadow: none;
+}
+
+.shiny_toggle:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow:
+            0 6px 0 #999,
+            0 8px 20px rgba(0, 0, 0, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.shiny_toggle:active {
+    transform: translateY(1px) scale(1);
+    box-shadow:
+            0 2px 0 #999,
+            0 3px 8px rgba(0, 0, 0, 0.3),
+            inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* État actif (shiny) */
+.shiny_toggle.active {
+    /* Dégradé doré brillant pour shiny */
+    background: linear-gradient(
+            180deg,
+            #ffd700 0%,
+            #ffed4e 25%,
+            #fff9c4 50%,
+            #ffed4e 75%,
+            #ffd700 100%
+    );
+    background-size: 200% 200%;
+
+    box-shadow:
+            0 4px 0 #cc9900,
+            0 6px 20px rgba(255, 215, 0, 0.6),
+            0 0 30px rgba(255, 215, 0, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+    animation: shinyPulse 2s ease-in-out infinite;
+}
+
+.shiny_toggle.active:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow:
+            0 6px 0 #cc9900,
+            0 8px 25px rgba(255, 215, 0, 0.7),
+            0 0 40px rgba(255, 215, 0, 0.5),
+            inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+@keyframes shinyPulse {
+    0%, 100% {
+        background-position: 0% 50%;
+        box-shadow:
+                0 4px 0 #cc9900,
+                0 6px 20px rgba(255, 215, 0, 0.6),
+                0 0 30px rgba(255, 215, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+    50% {
+        background-position: 100% 50%;
+        box-shadow:
+                0 4px 0 #cc9900,
+                0 6px 20px rgba(255, 215, 0, 0.8),
+                0 0 40px rgba(255, 215, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+}
+
+/* Icône étoile */
+.toggle_icon {
+    font-size: 1.125rem;
+    display: inline-flex;
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.shiny_toggle:hover .toggle_icon {
+    transform: scale(1.2) rotate(20deg);
+}
+
+.shiny_toggle.active .toggle_icon {
+    animation: sparkle 1.5s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    25% {
+        transform: scale(1.3) rotate(90deg);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1) rotate(180deg);
+        opacity: 1;
+    }
+    75% {
+        transform: scale(1.3) rotate(270deg);
+        opacity: 0.8;
+    }
+}
+
+/* Animation du sprite shiny */
+.pokemon_sprite.shiny {
+    animation: shinyGlow 2s ease-in-out infinite;
+    filter: drop-shadow(0 6px 12px rgba(255, 215, 0, 0.6)) brightness(1.1);
+}
+
+@keyframes shinyGlow {
+    0%, 100% {
+        filter: drop-shadow(0 6px 12px rgba(255, 215, 0, 0.6)) brightness(1.1);
+    }
+    50% {
+        filter: drop-shadow(0 8px 20px rgba(255, 215, 0, 0.8)) brightness(1.2);
+    }
+}
+
 /* ==================== TITRES DE SECTION ==================== */
 
 .section_title {
@@ -544,12 +696,24 @@
     gap: 0.75rem;
 }
 
-.evolution_node button {
+.evolution_button {
     background: none;
     border: none;
     padding: 0;
     width: 100%;
     cursor: pointer;
+    text-align: left;
+}
+
+.evolution_button:disabled {
+    cursor: default;
+}
+
+.evolution_button:not(:disabled):hover .evolution_pokemon {
+    transform: translateX(8px) translateY(-3px);
+    box-shadow:
+            0 5px 0 #999,
+            0 8px 20px rgba(255, 215, 0, 0.4);
 }
 
 .evolution_pokemon {
@@ -565,13 +729,6 @@
     box-shadow:
             0 3px 0 #999,
             0 5px 12px rgba(0, 0, 0, 0.2);
-}
-
-.evolution_pokemon:hover {
-    transform: translateX(8px) translateY(-3px);
-    box-shadow:
-            0 5px 0 #999,
-            0 8px 20px rgba(255, 215, 0, 0.4);
 }
 
 .evolution_name {
@@ -616,6 +773,90 @@
     margin: 0.75rem 0 0.5rem 0;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+}
+
+/* ==================== PRÉ-ÉVOLUTION ==================== */
+
+.pre_evolution {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 12px;
+    border-left: 4px solid #667eea;
+}
+
+.evolution_arrow {
+    display: block;
+    font-size: 0.875rem;
+    color: #667eea;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.75rem;
+}
+
+/* ==================== POKÉMON ACTUEL ==================== */
+
+.current_pokemon {
+    background: linear-gradient(
+            145deg,
+            #ffd700 0%,
+            #ffed4e 50%,
+            #ffd700 100%
+    ) !important;
+    border-color: #ff6b00 !important;
+    box-shadow:
+            0 0 0 2px #ff6b00,
+            0 5px 0 #cc9900,
+            0 8px 25px rgba(255, 215, 0, 0.6),
+            0 0 40px rgba(255, 215, 0, 0.4) !important;
+    transform: scale(1.05);
+}
+
+.current_pokemon:hover {
+    transform: scale(1.05) !important;
+    cursor: default;
+}
+
+.current_badge {
+    display: inline-block;
+    padding: 0.25rem 0.625rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-left: 0.5rem;
+}
+
+/* ==================== ÉTAT "PAS D'ÉVOLUTION" ==================== */
+
+.no_evolution {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 16px;
+    border: 3px dashed #999;
+}
+
+.no_evolution_icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+}
+
+.no_evolution_text {
+    color: #666;
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Courier New', monospace;
+    margin: 0;
 }
 
 /* ==================== ÉTATS DE CHARGEMENT ET ERREUR ==================== */
@@ -698,6 +939,14 @@
     margin-bottom: 1.5rem;
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+.error_subtitle {
+    color: #666;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0.5rem 0 1.5rem 0;
+    font-family: 'Courier New', monospace;
 }
 
 .action_button {
@@ -787,6 +1036,32 @@
         font-size: 1.25rem;
         padding: 0.625rem 1rem;
     }
+
+    .shiny_toggle {
+        padding: 0.625rem 1rem;
+        font-size: 0.813rem;
+        margin-top: 0.75rem;
+    }
+
+    .toggle_icon {
+        font-size: 1rem;
+    }
+
+    .no_evolution {
+        padding: 2rem 1.5rem;
+    }
+
+    .no_evolution_icon {
+        font-size: 3rem;
+    }
+
+    .no_evolution_text {
+        font-size: 1rem;
+    }
+
+    .pre_evolution {
+        padding: 0.75rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -815,206 +1090,51 @@
         font-size: 1.75rem;
         letter-spacing: 1px;
     }
+
+    .shiny_toggle {
+        padding: 0.625rem 0.875rem;
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+    }
+
+    .no_evolution {
+        padding: 1.5rem 1rem;
+    }
+
+    .no_evolution_icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .no_evolution_text {
+        font-size: 0.875rem;
+        letter-spacing: 0.5px;
+    }
+
+    .current_badge {
+        font-size: 0.625rem;
+        padding: 0.2rem 0.5rem;
+    }
 }
 
 /* ==================== ACCESSIBILITÉ ==================== */
 
 @media (prefers-reduced-motion: reduce) {
     .detailed_view_container,
+    .detailed_view_container::after,
     .pokemon_sprite,
+    .pokemon_sprite.shiny,
     .type_badge,
     .stat_bar,
     .talent_item,
     .resistance_item,
     .evolution_pokemon,
     .loading_spinner,
-    .detailed_view_container::after {
-        animation: none !important;
-        transition: none !important;
-    }
-}
-
-/* ==================== BOUTON TOGGLE SHINY ==================== */
-
-.shiny_toggle {
-    margin-top: 1rem;
-    padding: 0.75rem 1.25rem;
-    border: 3px solid #1a1a1a;
-    border-radius: 50px;
-    font-weight: 800;
-    font-size: 0.875rem;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-
-    /* Style normal (gris) */
-    background: linear-gradient(
-            180deg,
-            #ffffff 0%,
-            #f0f0f0 50%,
-            #ffffff 100%
-    );
-    color: #1a1a1a;
-
-    box-shadow:
-            0 4px 0 #999,
-            0 6px 15px rgba(0, 0, 0, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.8);
-
-    transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-
-    text-shadow: none;
-}
-
-.shiny_toggle:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow:
-            0 6px 0 #999,
-            0 8px 20px rgba(0, 0, 0, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.9);
-}
-
-.shiny_toggle:active {
-    transform: translateY(1px) scale(1);
-    box-shadow:
-            0 2px 0 #999,
-            0 3px 8px rgba(0, 0, 0, 0.3),
-            inset 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* État actif (shiny) */
-.shiny_toggle.active {
-    /* Dégradé doré brillant pour shiny */
-    background: linear-gradient(
-            180deg,
-            #ffd700 0%,
-            #ffed4e 25%,
-            #fff9c4 50%,
-            #ffed4e 75%,
-            #ffd700 100%
-    );
-    background-size: 200% 200%;
-
-    box-shadow:
-            0 4px 0 #cc9900,
-            0 6px 20px rgba(255, 215, 0, 0.6),
-            0 0 30px rgba(255, 215, 0, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.6);
-
-    animation: shinyPulse 2s ease-in-out infinite;
-}
-
-.shiny_toggle.active:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow:
-            0 6px 0 #cc9900,
-            0 8px 25px rgba(255, 215, 0, 0.7),
-            0 0 40px rgba(255, 215, 0, 0.5),
-            inset 0 1px 0 rgba(255, 255, 255, 0.7);
-}
-
-@keyframes shinyPulse {
-    0%, 100% {
-        background-position: 0% 50%;
-        box-shadow:
-                0 4px 0 #cc9900,
-                0 6px 20px rgba(255, 215, 0, 0.6),
-                0 0 30px rgba(255, 215, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.6);
-    }
-    50% {
-        background-position: 100% 50%;
-        box-shadow:
-                0 4px 0 #cc9900,
-                0 6px 20px rgba(255, 215, 0, 0.8),
-                0 0 40px rgba(255, 215, 0, 0.6),
-                inset 0 1px 0 rgba(255, 255, 255, 0.7);
-    }
-}
-
-/* Icône étoile */
-.toggle_icon {
-    font-size: 1.125rem;
-    display: inline-flex;
-    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.shiny_toggle:hover .toggle_icon {
-    transform: scale(1.2) rotate(20deg);
-}
-
-.shiny_toggle.active .toggle_icon {
-    animation: sparkle 1.5s ease-in-out infinite;
-}
-
-@keyframes sparkle {
-    0%, 100% {
-        transform: scale(1) rotate(0deg);
-        opacity: 1;
-    }
-    25% {
-        transform: scale(1.3) rotate(90deg);
-        opacity: 0.8;
-    }
-    50% {
-        transform: scale(1) rotate(180deg);
-        opacity: 1;
-    }
-    75% {
-        transform: scale(1.3) rotate(270deg);
-        opacity: 0.8;
-    }
-}
-
-/* Animation du sprite shiny */
-.pokemon_sprite.shiny {
-    animation: shinyGlow 2s ease-in-out infinite;
-    filter: drop-shadow(0 6px 12px rgba(255, 215, 0, 0.6)) brightness(1.1);
-}
-
-@keyframes shinyGlow {
-    0%, 100% {
-        filter: drop-shadow(0 6px 12px rgba(255, 215, 0, 0.6)) brightness(1.1);
-    }
-    50% {
-        filter: drop-shadow(0 8px 20px rgba(255, 215, 0, 0.8)) brightness(1.2);
-    }
-}
-
-/* ==================== RESPONSIVE POUR BOUTON SHINY ==================== */
-
-@media (max-width: 768px) {
-    .shiny_toggle {
-        padding: 0.625rem 1rem;
-        font-size: 0.813rem;
-        margin-top: 0.75rem;
-    }
-
-    .toggle_icon {
-        font-size: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .shiny_toggle {
-        padding: 0.625rem 0.875rem;
-        font-size: 0.75rem;
-        letter-spacing: 0.5px;
-    }
-}
-
-/* ==================== ACCESSIBILITÉ ==================== */
-
-@media (prefers-reduced-motion: reduce) {
     .shiny_toggle.active,
     .toggle_icon,
-    .pokemon_sprite.shiny {
+    .shiny_toggle.active .toggle_icon {
         animation: none !important;
+        transition: none !important;
     }
 
     .pokemon_sprite.shiny {

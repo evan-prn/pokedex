@@ -6,57 +6,33 @@
  * - Statistiques avec barres de progression
  * - Talents (capacités spéciales)
  * - Résistances aux différents types
- * - Chaîne d'évolution complète
+ * - Chaîne d'évolution complète avec gestion de tous les cas
  *
+ * Utilise RTK Query pour récupérer les données de l'API.
  * Gère les états de chargement, d'erreur et les données manquantes.
  */
 
-import {type JSX, useEffect, useState} from 'react';
+import { type JSX, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { GetPokemonDetailedById } from '../../api/TyradexAPI';
-import type { IPokemon } from '../../types/IPokemon';
+import { useGetPokemonDetailsByIdQuery } from '../../api/pokemonAPI';
 import style from './PokemonDetailedView.module.css';
 
-const PokemonDetailedView = () => {
+const PokemonDetailedView = (): JSX.Element => {
     const { pokeId } = useParams<{ pokeId: string }>();
     const navigate = useNavigate();
-
-    const [pokemon, setPokemon] = useState<IPokemon | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
 
     // État pour toggle shiny
     const [isShiny, setIsShiny] = useState<boolean>(false);
 
-    /**
-     * Charge les données détaillées du Pokémon au montage du composant
-     * et lors du changement de l'ID dans l'URL
-     */
-    useEffect(() => {
-        if (!pokeId) {
-            setError('ID du Pokémon manquant');
-            setLoading(false);
-            return;
-        }
-
-        const loadPokemon = async () => {
-            setLoading(true);
-            setError(null);
-            setIsShiny(false); // Reset shiny state
-
-            try {
-                const data = await GetPokemonDetailedById(Number(pokeId));
-                setPokemon(data);
-            } catch (err) {
-                setError(err instanceof Error ? err.message : 'Erreur de chargement');
-                console.error('Erreur lors du chargement du Pokémon:', err);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        loadPokemon();
-    }, [pokeId]);
+    // Utilisation de RTK Query
+    const {
+        data: pokemon,
+        isLoading,
+        isError,
+        error,
+    } = useGetPokemonDetailsByIdQuery(Number(pokeId), {
+        skip: !pokeId,
+    });
 
     /**
      * Retourne à la liste des Pokémon
@@ -70,6 +46,28 @@ const PokemonDetailedView = () => {
      */
     const toggleShiny = () => {
         setIsShiny(!isShiny);
+    };
+
+    /**
+     * Vérifie si un Pokémon a une chaîne d'évolution complète
+     */
+    const hasEvolution = (evolutionData: any): boolean => {
+        if (!evolutionData) return false;
+
+        // Vérifie s'il y a une évolution suivante
+        if (evolutionData.next && evolutionData.next.length > 0) return true;
+
+        // Vérifie s'il y a une pré-évolution
+        if (evolutionData.pre && evolutionData.pre.length > 0) return true;
+
+        return false;
+    };
+
+    /**
+     * Vérifie si c'est le Pokémon actuel (celui qu'on regarde)
+     */
+    const isCurrentPokemon = (node: any, currentId: number): boolean => {
+        return node.pokedex_id === currentId;
     };
 
     /**
@@ -93,7 +91,7 @@ const PokemonDetailedView = () => {
     /**
      * Affichage pendant le chargement
      */
-    if (loading) {
+    if (isLoading) {
         return (
             <div className={style.page_wrapper}>
                 <div className={style.detailed_view_loading}>
@@ -107,12 +105,19 @@ const PokemonDetailedView = () => {
     /**
      * Affichage en cas d'erreur
      */
-    if (error) {
+    if (isError) {
+        const errorMessage = error && 'status' in error
+            ? `Erreur ${error.status}: Pokémon non trouvé`
+            : 'Erreur de chargement';
+
         return (
             <div className={style.page_wrapper}>
                 <div className={style.detailed_view_error}>
                     <div className={style.error_icon}>❌</div>
-                    <p>{error}</p>
+                    <p>{errorMessage}</p>
+                    <p className={style.error_subtitle}>
+                        Le Pokémon #{pokeId} n'existe pas dans la base de données.
+                    </p>
                     <button onClick={handleBackToList} className={style.action_button}>
                         ← Retour à la liste
                     </button>
@@ -271,11 +276,19 @@ const PokemonDetailedView = () => {
                 )}
 
                 {/* ========== SECTION ÉVOLUTION ========== */}
-                {pokemon.evolution && (
+                {pokemon.evolution && hasEvolution(pokemon.evolution) ? (
                     <div className={style.evolution_section}>
                         <h2 className={style.section_title}>🔄 Évolution</h2>
                         <div className={style.evolution_chain}>
-                            {renderEvolutionNode(pokemon.evolution)}
+                            {renderEvolutionNode(pokemon.evolution, pokemon.pokedex_id)}
+                        </div>
+                    </div>
+                ) : (
+                    <div className={style.evolution_section}>
+                        <h2 className={style.section_title}>🔄 Évolution</h2>
+                        <div className={style.no_evolution}>
+                            <span className={style.no_evolution_icon}>🚫</span>
+                            <p className={style.no_evolution_text}>Ce Pokémon n'a pas d'évolution</p>
                         </div>
                     </div>
                 )}
@@ -285,18 +298,53 @@ const PokemonDetailedView = () => {
 
     /**
      * Fonction récursive pour afficher la chaîne d'évolution
-     * Parcourt l'arbre d'évolution et affiche chaque nœud avec ses conditions
+     * @param node - Nœud d'évolution actuel
+     * @param currentPokemonId - ID du Pokémon actuellement consulté
+     * @param level - Niveau de profondeur (pour l'indentation)
      */
-    function renderEvolutionNode(node: any, level: number = 0): JSX.Element {
+    function renderEvolutionNode(node: any, currentPokemonId: number, level: number = 0): JSX.Element {
         if (!node) return <></>;
+
+        const isCurrent = isCurrentPokemon(node, currentPokemonId);
+        const hasNext = node.next && node.next.length > 0;
+        const hasPre = node.pre && node.pre.length > 0;
 
         return (
             <>
                 <div className={style.evolution_node} style={{ marginLeft: `${level * 1.5}rem` }}>
-                    <button>
-                        <div className={style.evolution_pokemon}>
+                    {/* Affichage de la pré-évolution si elle existe */}
+                    {hasPre && level === 0 && (
+                        <div className={style.pre_evolution}>
+                            <span className={style.evolution_arrow}>← Évolue de</span>
+                            {node.pre.map((preNode: any, index: number) => (
+                                <button
+                                    key={index}
+                                    onClick={() => navigate(`/pokemon/${preNode.pokedex_id}`)}
+                                    className={style.evolution_button}
+                                >
+                                    <div className={style.evolution_pokemon}>
+                                        <div>
+                                            <span className={style.evolution_name}>{preNode.name}</span>
+                                            <span className={style.evolution_id}> #{preNode.pokedex_id}</span>
+                                        </div>
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Pokémon actuel */}
+                    <button
+                        onClick={() => !isCurrent && navigate(`/pokemon/${node.pokedex_id}`)}
+                        className={style.evolution_button}
+                        disabled={isCurrent}
+                    >
+                        <div className={`${style.evolution_pokemon} ${isCurrent ? style.current_pokemon : ''}`}>
                             <div>
-                                <span className={style.evolution_name}>{node.name}</span>
+                                <span className={style.evolution_name}>
+                                    {node.name}
+                                    {isCurrent && <span className={style.current_badge}>(Actuel)</span>}
+                                </span>
                                 <span className={style.evolution_id}> #{node.pokedex_id}</span>
                             </div>
                             {node.condition && (
@@ -307,7 +355,8 @@ const PokemonDetailedView = () => {
                         </div>
                     </button>
 
-                    {node.next && node.next.length > 0 && (
+                    {/* Évolutions suivantes */}
+                    {hasNext && (
                         <div className={style.evolution_next}>
                             {node.next.map((nextNode: any, index: number) => (
                                 <div key={index}>
@@ -316,7 +365,7 @@ const PokemonDetailedView = () => {
                                             → {nextNode.condition}
                                         </span>
                                     )}
-                                    {renderEvolutionNode(nextNode, level + 1)}
+                                    {renderEvolutionNode(nextNode, currentPokemonId, level + 1)}
                                 </div>
                             ))}
                         </div>

@@ -1,11 +1,12 @@
 import type { JSX } from 'react';
 import { useGetPokemonListQuery } from "../../api/pokemonAPI.ts";
 import PokemonCard from '../PokemonCard/PokemonCard.tsx';
+import Loading from "../Loading/Loading.tsx";
 
 const BasicPokemonList = (): JSX.Element => {
-    const { data: pokemons = [], isLoading, isError} = useGetPokemonListQuery(1);
+    const { data: pokemons = [], isLoading, isError} = useGetPokemonListQuery();
 
-    if (isLoading) return <p>Chargement des Pokémon...</p>;
+    if (isLoading) return <Loading />;  // Affiche le composant 'Loading'
 
     if (isError) {
         return <p style={{ color: 'red' }}>Erreur : {JSON.stringify(isError)}</p>;

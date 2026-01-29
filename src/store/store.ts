@@ -6,7 +6,7 @@ import generationReducer from './slices/generation-slice';
 export const store = configureStore({
     reducer: {
         pokemon: pokemonReducer,
-        generation: generationReducer, // ✅ On l'ajoute ici
+        generation: generationReducer,
         [pokemonAPI.reducerPath]: pokemonAPI.reducer,
     },
     middleware: (getDefaultMiddleware) =>

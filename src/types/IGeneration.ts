@@ -8,6 +8,8 @@ export interface IGenerationRange {
     from: number;
     /** Le dernier ID (Pokedex ID) de cette génération (ex: 151) */
     to: number;
+    /** Nom de la région */
+    region: string;
 }
 
 /**

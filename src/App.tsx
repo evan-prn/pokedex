@@ -29,7 +29,7 @@ const App = () => {
 
         <main className="app-content">
             <GenerationCarousel />
-          <BasicPokemonList />
+            <BasicPokemonList />
         </main>
       </div>
   );

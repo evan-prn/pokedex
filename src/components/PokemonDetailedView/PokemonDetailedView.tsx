@@ -2,7 +2,7 @@
  * PokemonDetailedView.tsx
  *
  * Page de détail complète d'un Pokémon affichant toutes ses informations :
- * - Informations générales (nom, numéro, types, sprite)
+ * - Informations générales (nom, numéro, types, sprite avec toggle shiny)
  * - Statistiques avec barres de progression
  * - Talents (capacités spéciales)
  * - Résistances aux différents types
@@ -25,6 +25,9 @@ const PokemonDetailedView = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
+    // État pour toggle shiny
+    const [isShiny, setIsShiny] = useState<boolean>(false);
+
     /**
      * Charge les données détaillées du Pokémon au montage du composant
      * et lors du changement de l'ID dans l'URL
@@ -39,6 +42,7 @@ const PokemonDetailedView = () => {
         const loadPokemon = async () => {
             setLoading(true);
             setError(null);
+            setIsShiny(false); // Reset shiny state
 
             try {
                 const data = await GetPokemonDetailedById(Number(pokeId));
@@ -59,6 +63,13 @@ const PokemonDetailedView = () => {
      */
     const handleBackToList = () => {
         navigate('/');
+    };
+
+    /**
+     * Toggle entre sprite normal et shiny
+     */
+    const toggleShiny = () => {
+        setIsShiny(!isShiny);
     };
 
     /**
@@ -127,6 +138,14 @@ const PokemonDetailedView = () => {
         );
     }
 
+    // Détermine l'image à afficher (shiny ou normal)
+    const currentSprite = isShiny
+        ? pokemon.sprites?.shiny || pokemon.sprites?.regular
+        : pokemon.sprites?.regular;
+
+    // Vérifie si le sprite shiny existe
+    const hasShinySprite = pokemon.sprites?.shiny && pokemon.sprites.shiny !== pokemon.sprites.regular;
+
     return (
         <div className={style.page_wrapper}>
             {/* Bouton de retour fixe en haut */}
@@ -142,12 +161,25 @@ const PokemonDetailedView = () => {
                 {/* ========== SECTION EN-TÊTE ========== */}
                 <div className={style.header_section}>
                     <div className={style.sprite_container}>
-                        {pokemon.sprites?.regular && (
+                        {currentSprite && (
                             <img
-                                src={pokemon.sprites.regular}
-                                alt={`Sprite de ${pokemon.name?.fr}`}
-                                className={style.pokemon_sprite}
+                                src={currentSprite}
+                                alt={`Sprite ${isShiny ? 'shiny' : 'normal'} de ${pokemon.name?.fr}`}
+                                className={`${style.pokemon_sprite} ${isShiny ? style.shiny : ''}`}
                             />
+                        )}
+
+                        {/* Bouton toggle shiny */}
+                        {hasShinySprite && (
+                            <button
+                                className={`${style.shiny_toggle} ${isShiny ? style.active : ''}`}
+                                onClick={toggleShiny}
+                                aria-label={isShiny ? 'Afficher sprite normal' : 'Afficher sprite shiny'}
+                                title={isShiny ? 'Sprite Shiny' : 'Sprite Normal'}
+                            >
+                                <span className={style.toggle_icon}>✨</span>
+                                {isShiny ? 'Shiny' : 'Normal'}
+                            </button>
                         )}
                     </div>
 
@@ -269,8 +301,8 @@ const PokemonDetailedView = () => {
                             </div>
                             {node.condition && (
                                 <span className={style.evolution_condition_inline}>
-                            {node.condition}
-                        </span>
+                                    {node.condition}
+                                </span>
                             )}
                         </div>
                     </button>
@@ -278,10 +310,8 @@ const PokemonDetailedView = () => {
                     {node.next && node.next.length > 0 && (
                         <div className={style.evolution_next}>
                             {node.next.map((nextNode: any, index: number) => (
-
                                 <div key={index}>
                                     {nextNode.condition && (
-
                                         <span className={style.evolution_condition}>
                                             → {nextNode.condition}
                                         </span>
@@ -293,7 +323,6 @@ const PokemonDetailedView = () => {
                     )}
                 </div>
             </>
-
         );
     }
 };

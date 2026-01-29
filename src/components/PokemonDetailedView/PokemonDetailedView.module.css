@@ -833,3 +833,191 @@
         transition: none !important;
     }
 }
+
+/* ==================== BOUTON TOGGLE SHINY ==================== */
+
+.shiny_toggle {
+    margin-top: 1rem;
+    padding: 0.75rem 1.25rem;
+    border: 3px solid #1a1a1a;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 0.875rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    /* Style normal (gris) */
+    background: linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #f0f0f0 50%,
+            #ffffff 100%
+    );
+    color: #1a1a1a;
+
+    box-shadow:
+            0 4px 0 #999,
+            0 6px 15px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+    transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    text-shadow: none;
+}
+
+.shiny_toggle:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow:
+            0 6px 0 #999,
+            0 8px 20px rgba(0, 0, 0, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.shiny_toggle:active {
+    transform: translateY(1px) scale(1);
+    box-shadow:
+            0 2px 0 #999,
+            0 3px 8px rgba(0, 0, 0, 0.3),
+            inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* État actif (shiny) */
+.shiny_toggle.active {
+    /* Dégradé doré brillant pour shiny */
+    background: linear-gradient(
+            180deg,
+            #ffd700 0%,
+            #ffed4e 25%,
+            #fff9c4 50%,
+            #ffed4e 75%,
+            #ffd700 100%
+    );
+    background-size: 200% 200%;
+
+    box-shadow:
+            0 4px 0 #cc9900,
+            0 6px 20px rgba(255, 215, 0, 0.6),
+            0 0 30px rgba(255, 215, 0, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+    animation: shinyPulse 2s ease-in-out infinite;
+}
+
+.shiny_toggle.active:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow:
+            0 6px 0 #cc9900,
+            0 8px 25px rgba(255, 215, 0, 0.7),
+            0 0 40px rgba(255, 215, 0, 0.5),
+            inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+@keyframes shinyPulse {
+    0%, 100% {
+        background-position: 0% 50%;
+        box-shadow:
+                0 4px 0 #cc9900,
+                0 6px 20px rgba(255, 215, 0, 0.6),
+                0 0 30px rgba(255, 215, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+    50% {
+        background-position: 100% 50%;
+        box-shadow:
+                0 4px 0 #cc9900,
+                0 6px 20px rgba(255, 215, 0, 0.8),
+                0 0 40px rgba(255, 215, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+}
+
+/* Icône étoile */
+.toggle_icon {
+    font-size: 1.125rem;
+    display: inline-flex;
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.shiny_toggle:hover .toggle_icon {
+    transform: scale(1.2) rotate(20deg);
+}
+
+.shiny_toggle.active .toggle_icon {
+    animation: sparkle 1.5s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    25% {
+        transform: scale(1.3) rotate(90deg);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1) rotate(180deg);
+        opacity: 1;
+    }
+    75% {
+        transform: scale(1.3) rotate(270deg);
+        opacity: 0.8;
+    }
+}
+
+/* Animation du sprite shiny */
+.pokemon_sprite.shiny {
+    animation: shinyGlow 2s ease-in-out infinite;
+    filter: drop-shadow(0 6px 12px rgba(255, 215, 0, 0.6)) brightness(1.1);
+}
+
+@keyframes shinyGlow {
+    0%, 100% {
+        filter: drop-shadow(0 6px 12px rgba(255, 215, 0, 0.6)) brightness(1.1);
+    }
+    50% {
+        filter: drop-shadow(0 8px 20px rgba(255, 215, 0, 0.8)) brightness(1.2);
+    }
+}
+
+/* ==================== RESPONSIVE POUR BOUTON SHINY ==================== */
+
+@media (max-width: 768px) {
+    .shiny_toggle {
+        padding: 0.625rem 1rem;
+        font-size: 0.813rem;
+        margin-top: 0.75rem;
+    }
+
+    .toggle_icon {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .shiny_toggle {
+        padding: 0.625rem 0.875rem;
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+    }
+}
+
+/* ==================== ACCESSIBILITÉ ==================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .shiny_toggle.active,
+    .toggle_icon,
+    .pokemon_sprite.shiny {
+        animation: none !important;
+    }
+
+    .pokemon_sprite.shiny {
+        filter: drop-shadow(0 6px 12px rgba(255, 215, 0, 0.6)) brightness(1.1);
+    }
+}

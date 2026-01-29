@@ -200,7 +200,7 @@
 
 /* M stylisé au centre (Master Ball) */
 .release_button::after {
-    content: 'M';
+    content: '';
     position: absolute;
     left: 50%;
     top: 50%;

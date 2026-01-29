@@ -2,6 +2,7 @@ import { useOutletContext } from 'react-router-dom';
 import type { ITrainer } from "./types/ITrainer.ts";
 
 import BasicPokemonList from "./components/BasicPokemonList/BasicPokemonList.tsx";
+import GenerationCarousel from "./components/GenerationCarousel/GenerationCarousel.tsx";
 import CurrentTrainer   from "./components/CurrentTrainer/CurrentTrainer.tsx";
 
 import "./api/TyradexAPI.ts";
@@ -25,7 +26,9 @@ const App = () => {
         {/* CurrentTrainer affiche le dresseur connecté */}
         <CurrentTrainer trainer={selectedTrainer} />
 
+
         <main className="app-content">
+            <GenerationCarousel />
           <BasicPokemonList />
         </main>
       </div>

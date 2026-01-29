@@ -1,15 +1,24 @@
 import { createApi, fetchBaseQuery }    from "@reduxjs/toolkit/query/react";
 import type { IPokemon }                from "../types/IPokemon.ts";
+import type { IGenerationList }         from "../types/IGeneration.ts";
 
-export const pokemonApi = createApi({
+export const pokemonAPI = createApi({
     reducerPath: "pokemonAPI",
-    basePath: fetchBaseQuery({ baseUrl: "https://tyradex.vercel.app/api/v1/" }),
+    baseQuery: fetchBaseQuery({ baseUrl: "https://tyradex.vercel.app/api/v1/" }),   // Base URL
 
+    /**
+     * Liste des endpoints de l'API
+     * @param builder
+     */
     endpoints: (builder) => ({
         getPokemonList: builder.query<IPokemon[], number | void> ({
-            query: (id) => `pokemon/${id}`,
+            query: () => `pokemon`,
         }),
+
+        getGenerationList: builder.query<IGenerationList[], number | void> ({
+            query: () => `gen`
+        })
     }),
 });
 
-export const { useGetPokemonQuery } = pokemonApi;
+export const { useGetPokemonListQuery, useGetGenerationListQuery } = pokemonAPI;

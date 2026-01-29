@@ -8,8 +8,17 @@ export const pokemonAPI = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: "https://tyradex.vercel.app/api/v1/" }),
 
     endpoints: (builder) => ({
+
         getPokemonList: builder.query<IPokemon[], void>({
             query: () => `pokemon`,
+        }),
+
+        /**
+         * Récupère les Pokémon d'une génération spécifique
+         * @param generation - Numéro de la génération (1-9)
+         */
+        getPokemonByGeneration: builder.query<IPokemon[], number>({
+            query: (generation) => `gen/${generation}`,
         }),
 
         // L'API retourne un tableau, on le garde tel quel
@@ -47,5 +56,6 @@ export const pokemonAPI = createApi({
 export const {
     useGetPokemonListQuery,
     useGetPokemonDetailsByIdQuery,
+    useGetPokemonByGenerationQuery,
     useGetGenerationListQuery,
 } = pokemonAPI;

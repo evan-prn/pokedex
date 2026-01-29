@@ -1,31 +1,45 @@
 import type { JSX } from 'react';
-import { useGetPokemonListQuery } from "../../api/pokemonAPI.ts";
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../store/store';
+import { useGetPokemonByGenerationQuery } from "../../api/pokemonAPI.ts";
 import PokemonCard from '../PokemonCard/PokemonCard.tsx';
 import Loading from "../Loading/Loading.tsx";
 
-const BasicPokemonList = (): JSX.Element => {
-    const { data: pokemons = [], isLoading, isError} = useGetPokemonListQuery();
+import styles from './BasicPokemonList.module.css';
 
-    if (isLoading) return <Loading />;  // Affiche le composant 'Loading'
+const BasicPokemonList = (): JSX.Element => {
+    // Récupère la génération active depuis Redux
+    const currentGen = useSelector((state: RootState) => state.generation.currentGen);
+
+    // Appel API filtré par génération
+    const {
+        data: pokemons = [],
+        isLoading,
+        isError,
+        error
+    } = useGetPokemonByGenerationQuery(currentGen);
+
+    if (isLoading) return <Loading />;
 
     if (isError) {
-        return <p style={{ color: 'red' }}>Erreur : {JSON.stringify(isError)}</p>;
+        return (
+            <div style={{ padding: '20px', color: 'red' }}>
+                <h2>Erreur de chargement</h2>
+                <p>{error ? JSON.stringify(error) : 'Erreur inconnue'}</p>
+            </div>
+        );
     }
 
     return (
-        <div style={{ padding: '20px' }}>
-            <h2>Pokédex ({pokemons.length})</h2>
-            <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
-                gap: '1rem'
-            }}>
+        <div className={styles.container}>
+            {/* Grille de cartes Pokémon */}
+            <div className={styles.grid}>
                 {pokemons.length > 0 ? (
                     pokemons.map((pokemon) => (
                         <PokemonCard key={pokemon.pokedex_id} pokemon={pokemon} />
                     ))
                 ) : (
-                    <p>Aucun Pokémon trouvé.</p>
+                    <p className={styles.empty}>Aucun Pokémon trouvé pour cette génération.</p>
                 )}
             </div>
         </div>

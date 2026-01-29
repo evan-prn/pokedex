@@ -21,12 +21,12 @@ const App = () => {
 
   return (
       <div className="app">
+          <GenerationCarousel />
         {/* CurrentTrainer affiche le dresseur connecté */}
         <CurrentTrainer trainer={selectedTrainer} />
 
 
         <main className="app-content">
-            <GenerationCarousel />
             <BasicPokemonList />
         </main>
       </div>

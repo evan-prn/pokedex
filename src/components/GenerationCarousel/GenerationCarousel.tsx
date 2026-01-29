@@ -1,12 +1,15 @@
-import {type JSX, useRef} from 'react';
+import { type JSX, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import type { RootState }           from '../../store/store.ts';
-import { setGeneration }            from '../../store/slices/generation-slice.ts';
-import { GENERATIONS_DATA }         from '../../data/generation.ts';
+import type { RootState } from '../../store/store.ts';
+import { setGeneration } from '../../store/slices/generation-slice.ts';
+import { useGetGenerationListQuery } from "../../api/pokemonAPI.ts";
 
 import styles from './GenerationCarousel.module.css';
 
 const GenerationCarousel = (): JSX.Element => {
+    // Récupération des générations depuis l'API
+    const { data: generations = [], isLoading, isError } = useGetGenerationListQuery();
+
     const dispatch = useDispatch();
     const activeGen = useSelector((state: RootState) => state.generation.currentGen);
     const scrollRef = useRef<HTMLDivElement>(null);
@@ -17,6 +20,42 @@ const GenerationCarousel = (): JSX.Element => {
             scrollRef.current.scrollBy({ left: offset, behavior: 'smooth' });
         }
     };
+
+    // État de chargement
+    if (isLoading) {
+        return (
+            <div className={styles.container}>
+                <div className={styles.loading}>
+                    <div className={styles.loading_spinner}></div>
+                    <p>Chargement des générations...</p>
+                </div>
+            </div>
+        );
+    }
+
+    // État d'erreur
+    if (isError) {
+        return (
+            <div className={styles.container}>
+                <div className={styles.error}>
+                    <span className={styles.error_icon}>❌</span>
+                    <p>Erreur de chargement des générations</p>
+                </div>
+            </div>
+        );
+    }
+
+    // Si aucune génération n'est disponible
+    if (!generations || generations.length === 0) {
+        return (
+            <div className={styles.container}>
+                <div className={styles.error}>
+                    <span className={styles.error_icon}>⚠️</span>
+                    <p>Aucune génération disponible</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className={styles.container}>
@@ -29,7 +68,7 @@ const GenerationCarousel = (): JSX.Element => {
             </button>
 
             <div className={styles.scrollContainer} ref={scrollRef}>
-                {GENERATIONS_DATA.map((gen) => (
+                {generations.map((gen) => (
                     <div
                         key={gen.generation}
                         className={`${styles.card} ${activeGen === gen.generation ? styles.activeCard : ''}`}

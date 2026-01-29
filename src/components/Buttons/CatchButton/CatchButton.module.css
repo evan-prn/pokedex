@@ -1,0 +1,593 @@
+/**
+ * CatchButton.module.css
+ * Styles pour le bouton de capture/relâchement de Pokémon
+ * Design inspiré de l'univers Pokémon
+ */
+
+/* ==================== STYLES COMMUNS ==================== */
+
+.catch_button,
+.release_button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    border: 3px solid;
+    border-radius: 50px;
+    font-size: 0.813rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.icon {
+    font-size: 1.125rem;
+    display: inline-flex;
+    align-items: center;
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+/* ==================== BOUTON CAPTURER (Style Pokéball) ==================== */
+
+.catch_button {
+    color: #ffffff;
+    background: linear-gradient(
+            180deg,
+            #ff0000 0%,
+            #cc0000 48%,
+            #000000 48%,
+            #000000 52%,
+            #ffffff 52%,
+            #f0f0f0 100%
+    );
+    border-color: #000000;
+    box-shadow:
+            0 4px 0 #8b0000,
+            0 6px 12px rgba(0, 0, 0, 0.4),
+            inset 0 2px 0 rgba(255, 255, 255, 0.3),
+            inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.catch_button:hover {
+    transform: translateY(-4px) scale(1.08);
+    box-shadow:
+            0 6px 0 #8b0000,
+            0 10px 20px rgba(255, 0, 0, 0.6),
+            0 0 30px rgba(255, 0, 0, 0.4),
+            inset 0 2px 0 rgba(255, 255, 255, 0.4);
+}
+
+.catch_button:hover .icon {
+    transform: scale(1.3) rotate(360deg);
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
+}
+
+.catch_button:active {
+    transform: translateY(2px) scale(1.05);
+    box-shadow:
+            0 2px 0 #8b0000,
+            0 3px 8px rgba(0, 0, 0, 0.4),
+            inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Effet d'éclair électrique sur capture */
+.catch_button::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background:
+            radial-gradient(
+                    circle,
+                    rgba(255, 215, 0, 0.4) 0%,
+                    transparent 70%
+            );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.catch_button:hover::before {
+    opacity: 1;
+    animation: electricPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes electricPulse {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 0.3;
+    }
+    50% {
+        transform: scale(1.2) rotate(180deg);
+        opacity: 0.6;
+    }
+}
+
+/* Cercle central style bouton Pokéball */
+.catch_button::after {
+    content: '○';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.75rem;
+    color: #000000;
+    font-weight: 900;
+    text-shadow:
+            0 0 2px #ffffff,
+            0 0 4px #ffffff;
+    z-index: 1;
+}
+
+/* ==================== BOUTON RELÂCHER (Style Master Ball) ==================== */
+
+.release_button {
+    color: #ffffff;
+    background: linear-gradient(
+            180deg,
+            #6a0dad 0%,
+            #4a0080 48%,
+            #000000 48%,
+            #000000 52%,
+            #ff1493 52%,
+            #ff69b4 100%
+    );
+    border-color: #000000;
+    box-shadow:
+            0 4px 0 #2d0054,
+            0 6px 12px rgba(106, 13, 173, 0.4),
+            inset 0 2px 0 rgba(255, 255, 255, 0.3),
+            inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.release_button:hover {
+    transform: translateY(-4px) scale(1.08);
+    box-shadow:
+            0 6px 0 #2d0054,
+            0 10px 20px rgba(106, 13, 173, 0.6),
+            0 0 30px rgba(255, 20, 147, 0.5),
+            inset 0 2px 0 rgba(255, 255, 255, 0.4);
+}
+
+.release_button:hover .icon {
+    transform: scale(1.3) rotate(-360deg);
+    filter: drop-shadow(0 0 8px rgba(255, 20, 147, 0.8));
+}
+
+.release_button:active {
+    transform: translateY(2px) scale(1.05);
+    box-shadow:
+            0 2px 0 #2d0054,
+            0 3px 8px rgba(106, 13, 173, 0.4),
+            inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Effet d'étoiles sur relâchement */
+.release_button::before {
+    content: '✦';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.8);
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.4s ease;
+}
+
+.release_button:hover::before {
+    animation: starBurst 1s ease-in-out infinite;
+}
+
+@keyframes starBurst {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.5) rotate(180deg);
+        opacity: 1;
+    }
+}
+
+/* M stylisé au centre (Master Ball) */
+.release_button::after {
+    content: 'M';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.875rem;
+    color: #ffffff;
+    font-weight: 900;
+    text-shadow:
+            0 0 4px #ff1493,
+            0 0 8px #ff1493,
+            0 1px 2px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+/* ==================== ANIMATION DE SUCCÈS ==================== */
+
+@keyframes catchSuccess {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+    25% {
+        transform: scale(0.9) rotate(-10deg);
+    }
+    50% {
+        transform: scale(1.2) rotate(10deg);
+    }
+    75% {
+        transform: scale(0.95) rotate(-5deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.catch_button:active,
+.release_button:active {
+    animation: catchSuccess 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* ==================== SHIMMER EFFECT ==================== */
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+.catch_button:hover,
+.release_button:hover {
+    background-size: 200% auto;
+    animation: shimmer 2s linear infinite;
+}
+
+/* ==================== ÉTAT DISABLED ==================== */
+
+.catch_button:disabled,
+.release_button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+    background: linear-gradient(
+            180deg,
+            #999 0%,
+            #666 48%,
+            #333 48%,
+            #333 52%,
+            #ccc 52%,
+            #aaa 100%
+    );
+    border-color: #555;
+    box-shadow:
+            0 2px 0 #444,
+            0 4px 8px rgba(0, 0, 0, 0.2);
+    filter: grayscale(1);
+}
+
+.catch_button:disabled:hover,
+.release_button:disabled:hover {
+    transform: none;
+    animation: none;
+}
+
+.catch_button:disabled::before,
+.release_button:disabled::before,
+.catch_button:disabled::after,
+.release_button:disabled::after {
+    display: none;
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+/**
+ * Tablettes (max 992px)
+ */
+@media (max-width: 992px) {
+    .catch_button,
+    .release_button {
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+        border-width: 2.5px;
+    }
+
+    .icon {
+        font-size: 1rem;
+    }
+
+    .catch_button::after,
+    .release_button::after {
+        font-size: 0.688rem;
+    }
+}
+
+/**
+ * Mobile (max 768px)
+ */
+@media (max-width: 768px) {
+    .catch_button,
+    .release_button {
+        padding: 0.5rem 0.875rem;
+        font-size: 0.688rem;
+        gap: 0.375rem;
+        border-width: 2px;
+    }
+
+    .icon {
+        font-size: 0.938rem;
+    }
+
+    .catch_button::after,
+    .release_button::after {
+        font-size: 0.625rem;
+    }
+}
+
+/**
+ * Petits mobiles (max 480px)
+ */
+@media (max-width: 480px) {
+    .catch_button,
+    .release_button {
+        width: 100%;
+        padding: 0.625rem;
+        font-size: 0.75rem;
+    }
+}
+
+/* ==================== ACCESSIBILITÉ ==================== */
+
+.catch_button:focus-visible,
+.release_button:focus-visible {
+    outline: 4px solid #ffd700;
+    outline-offset: 3px;
+    animation: focusPulse 1s ease-in-out infinite;
+}
+
+@keyframes focusPulse {
+    0%, 100% { outline-color: #ffd700; }
+    50% { outline-color: #ffed4e; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .catch_button,
+    .release_button,
+    .icon,
+    .catch_button::before,
+    .release_button::before {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .catch_button:hover .icon,
+    .release_button:hover .icon {
+        transform: scale(1.1);
+    }
+}
+
+/* ==================== VARIANTE COMPACTE ==================== */
+
+.catch_button.compact,
+.release_button.compact {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.688rem;
+    border-width: 2px;
+}
+
+.catch_button.compact .icon,
+.release_button.compact .icon {
+    font-size: 0.875rem;
+}
+
+.catch_button.compact::after,
+.release_button.compact::after {
+    font-size: 0.563rem;
+}
+
+/* ==================== ICÔNE POKÉBALL SVG ==================== */
+
+.pokeball_icon {
+    display: inline-block;
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.catch_button:hover .pokeball_icon {
+    transform: rotate(360deg) scale(1.2);
+}
+
+.release_button:hover .pokeball_icon {
+    transform: rotate(-360deg) scale(1.2);
+}
+
+/* ==================== TEXTE DU BOUTON ==================== */
+
+.button_text {
+    position: relative;
+    z-index: 2;
+}
+
+/* ==================== ÉTAT ANIMATING ==================== */
+
+.animating {
+    pointer-events: none;
+    animation: buttonShake 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes buttonShake {
+    0%, 100% {
+        transform: translateX(0) rotate(0deg) scale(1);
+    }
+    10% {
+        transform: translateX(-5px) rotate(-5deg) scale(1.05);
+    }
+    20% {
+        transform: translateX(5px) rotate(5deg) scale(1.1);
+    }
+    30% {
+        transform: translateX(-5px) rotate(-5deg) scale(1.05);
+    }
+    40% {
+        transform: translateX(5px) rotate(5deg) scale(1.1);
+    }
+    50% {
+        transform: translateX(-3px) rotate(-3deg) scale(1.08);
+    }
+    60% {
+        transform: translateX(3px) rotate(3deg) scale(1.05);
+    }
+    70% {
+        transform: translateX(-2px) rotate(-2deg) scale(1.03);
+    }
+    80% {
+        transform: translateX(2px) rotate(2deg) scale(1.02);
+    }
+    90% {
+        transform: translateX(-1px) rotate(-1deg) scale(1.01);
+    }
+}
+
+/* ==================== SYSTÈME DE PARTICULES ==================== */
+
+.particles {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.particle {
+    position: absolute;
+    font-size: 1.25rem;
+    animation: particleExplosion 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.particle:nth-child(1) {
+    animation-delay: 0s;
+    left: -20%;
+    top: -20%;
+}
+
+.particle:nth-child(2) {
+    animation-delay: 0.1s;
+    right: -20%;
+    top: -20%;
+}
+
+.particle:nth-child(3) {
+    animation-delay: 0.15s;
+    left: -20%;
+    bottom: -20%;
+}
+
+.particle:nth-child(4) {
+    animation-delay: 0.05s;
+    right: -20%;
+    bottom: -20%;
+}
+
+@keyframes particleExplosion {
+    0% {
+        transform: translate(-50%, -50%) scale(0) rotate(0deg);
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) translateY(-30px) scale(1.5) rotate(180deg);
+        opacity: 0;
+    }
+}
+
+/* Animation spéciale quand on capture */
+.catch_button.animating {
+    animation: buttonShake 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+    catchFlash 0.5s ease-out;
+}
+
+@keyframes catchFlash {
+    0%, 100% {
+        box-shadow:
+                0 4px 0 #8b0000,
+                0 6px 12px rgba(0, 0, 0, 0.4);
+    }
+    50% {
+        box-shadow:
+                0 6px 0 #8b0000,
+                0 10px 30px rgba(255, 215, 0, 0.8),
+                0 0 50px rgba(255, 215, 0, 0.6),
+                inset 0 0 20px rgba(255, 215, 0, 0.4);
+    }
+}
+
+/* Animation spéciale quand on relâche */
+.release_button.animating {
+    animation: buttonShake 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+    releaseGlow 0.5s ease-out;
+}
+
+@keyframes releaseGlow {
+    0%, 100% {
+        box-shadow:
+                0 4px 0 #2d0054,
+                0 6px 12px rgba(106, 13, 173, 0.4);
+    }
+    50% {
+        box-shadow:
+                0 6px 0 #2d0054,
+                0 10px 30px rgba(255, 20, 147, 0.8),
+                0 0 50px rgba(255, 20, 147, 0.6),
+                inset 0 0 20px rgba(255, 20, 147, 0.4);
+    }
+}
+
+/* ==================== RESPONSIVE POUR LES PARTICULES ==================== */
+
+@media (max-width: 768px) {
+    .particle {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .particle {
+        font-size: 0.875rem;
+    }
+}
+
+/* ==================== ACCESSIBILITÉ ==================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .particles,
+    .particle,
+    .animating,
+    .pokeball_icon {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .catch_button:hover .pokeball_icon,
+    .release_button:hover .pokeball_icon {
+        transform: scale(1.1);
+    }
+}

@@ -1,6 +1,6 @@
 /**
  * LoginForm.tsx
- * Formulaire de connexion
+ * Formulaire de connexion avec liens vers inscription et récupération
  */
 
 import { useState, type FormEvent } from 'react';
@@ -56,6 +56,22 @@ const LoginForm = () => {
         });
     };
 
+    /**
+     * Redirige vers la page d'inscription
+     */
+    const handleRegisterClick = () => {
+        navigate('/register');
+    };
+
+    /**
+     * Gère le clic sur "Mot de passe oublié"
+     */
+    const handleForgotPasswordClick = () => {
+        // TODO: Implémenter la logique de récupération de mot de passe
+        alert('Fonctionnalité "Mot de passe oublié" à venir ! 🔑');
+        // navigate('/forgot-password'); // Route à créer plus tard
+    };
+
     return (
         <div className={style.login_form_container}>
             <h2>Connexion</h2>
@@ -79,9 +95,39 @@ const LoginForm = () => {
                     aria-label="Mot de passe"
                 />
 
+                {/* Lien mot de passe oublié */}
+                <div className={style.forgot_password_link}>
+                    <button
+                        type="button"
+                        onClick={handleForgotPasswordClick}
+                        className={style.text_button}
+                        aria-label="Mot de passe oublié"
+                    >
+                        Mot de passe oublié ?
+                    </button>
+                </div>
+
                 <button type="submit" aria-label="Se connecter">
                     Se connecter
                 </button>
+
+                {/* Divider */}
+                <div className={style.divider}>
+                    <span>ou</span>
+                </div>
+
+                {/* Lien vers inscription */}
+                <div className={style.register_link}>
+                    <span className={style.register_text}>Pas encore de compte ?</span>
+                    <button
+                        type="button"
+                        onClick={handleRegisterClick}
+                        className={style.register_button}
+                        aria-label="Créer un compte"
+                    >
+                        S'inscrire
+                    </button>
+                </div>
             </form>
         </div>
     );

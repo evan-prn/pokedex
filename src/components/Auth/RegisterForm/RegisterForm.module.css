@@ -1,6 +1,6 @@
 /**
  * RegisterForm.module.css
- * Styles pour le formulaire d'inscription
+ * Styles pour le formulaire d'inscription - Style Pokémon
  */
 
 /* ==================== CONTENEUR ==================== */
@@ -13,20 +13,109 @@
     justify-content: center;
     padding: 2rem;
     gap: 2rem;
-    background: #f5f5f5;
     position: relative;
+    overflow: hidden;
+
+    /* Dégradé Pokémon inversé (bleu/violet) */
+    background: linear-gradient(
+            135deg,
+            #1a3a6e 0%,
+            #2a4a7e 25%,
+            #3a5a8e 50%,
+            #2a4a7e 75%,
+            #1a3a6e 100%
+    );
+
+    /* Pattern de points style Pokéball */
+    background-image:
+            radial-gradient(circle at 20% 30%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 40% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+}
+
+/* Étoiles animées en arrière-plan */
+.register_form_container::before {
+    content: '✦';
+    position: absolute;
+    font-size: 2rem;
+    color: rgba(102, 126, 234, 0.4);
+    animation: floatingStar 8s ease-in-out infinite;
+    top: 10%;
+    left: 15%;
+    z-index: 0;
+}
+
+.register_form_container::after {
+    content: '✦';
+    position: absolute;
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.4);
+    animation: floatingStar 10s ease-in-out infinite reverse;
+    bottom: 20%;
+    right: 20%;
+    z-index: 0;
+}
+
+@keyframes floatingStar {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg) scale(1);
+        opacity: 0.3;
+    }
+    50% {
+        transform: translateY(-20px) rotate(180deg) scale(1.2);
+        opacity: 0.6;
+    }
 }
 
 /* ==================== TITRE ==================== */
 
 .register_form_container h2 {
-    margin: 0;
+    margin: 0 0 1rem 0;
     font-size: 2.5rem;
-    font-weight: 800;
+    font-weight: 900;
     color: #667eea;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     text-transform: uppercase;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+
+    /* Effet de texte style jeu Pokémon */
+    text-shadow:
+            3px 3px 0 #4a5fd9,
+            -1px -1px 0 #fff,
+            1px -1px 0 #fff,
+            -1px 1px 0 #fff,
+            1px 1px 0 #fff,
+            0 0 20px rgba(102, 126, 234, 0.5),
+            0 0 40px rgba(102, 126, 234, 0.3);
+
+    animation: titlePulse 2s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Badge style Pokédex sous le titre */
+.register_form_container h2::after {
+    content: '▶';
+    position: absolute;
+    left: -2.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    color: #667eea;
+    animation: arrowBlink 1.5s ease-in-out infinite;
+}
+
+@keyframes arrowBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
 }
 
 /* ==================== FORMULAIRE ==================== */
@@ -35,115 +124,393 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 1.5rem;
+    gap: 1.25rem;
     margin: 0;
-    padding: 3rem;
-    border-radius: 24px;
+    padding: 2.5rem;
+    border-radius: 20px;
     width: 100%;
     max-width: 450px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1;
+
+    /* Carte style Pokédex (bleu) */
+    background: linear-gradient(
+            145deg,
+            #667eea 0%,
+            #5a6dd6 50%,
+            #4a5bc2 100%
+    );
+
+    /* Bordure style console de jeu */
+    border: 4px solid #1a1a1a;
     box-shadow:
-            0 8px 32px rgba(31, 38, 135, 0.15),
-            0 0 0 1px rgba(255, 255, 255, 0.5) inset;
-    animation: slideInScale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            0 0 0 2px #ffd700,
+            0 10px 40px rgba(0, 0, 0, 0.5),
+            inset 0 2px 0 rgba(255, 255, 255, 0.3),
+            inset 0 -2px 5px rgba(0, 0, 0, 0.3);
+
+    animation: formSlideIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-@keyframes slideInScale {
-    from {
+@keyframes formSlideIn {
+    0% {
         opacity: 0;
-        transform: translateY(30px) scale(0.9);
+        transform: translateY(50px) scale(0.8) rotateX(20deg);
     }
-    to {
+    100% {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateY(0) scale(1) rotateX(0deg);
     }
+}
+
+/* Écran intérieur style Pokédex */
+.register_form_container form::before {
+    content: '';
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    border: 3px solid #1a1a1a;
+    z-index: 0;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Indicateurs LED style console (bleu) */
+.register_form_container form::after {
+    content: '';
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 12px;
+    height: 12px;
+    background: #00d4ff;
+    border-radius: 50%;
+    box-shadow:
+            0 0 10px #00d4ff,
+            0 0 20px #00d4ff;
+    animation: ledBlink 2s ease-in-out infinite;
+    z-index: 2;
+}
+
+@keyframes ledBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
 }
 
 /* ==================== INPUTS ==================== */
 
+.input_wrapper {
+    position: relative;
+    z-index: 1;
+}
+
 .register_form_container input {
+    width: 100%;
     padding: 1rem 1.5rem;
-    border: 2px solid rgba(102, 126, 234, 0.3);
-    border-radius: 12px;
+    border: 3px solid #1a1a1a;
+    border-radius: 10px;
     font-size: 1rem;
-    background: rgba(255, 255, 255, 0.9);
-    color: #333;
-    font-family: inherit;
-    font-weight: 500;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    background: #ffffff;
+    color: #1a1a1a;
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow:
+            inset 0 2px 5px rgba(0, 0, 0, 0.1),
+            0 2px 0 #667eea;
+    position: relative;
+    box-sizing: border-box;
 }
 
 .register_form_container input:focus {
     outline: none;
     border-color: #667eea;
-    background: rgba(255, 255, 255, 1);
+    background: #f0f4ff;
     box-shadow:
-            0 0 0 4px rgba(102, 126, 234, 0.15),
-            0 8px 16px rgba(102, 126, 234, 0.2);
-    transform: translateY(-2px);
+            inset 0 2px 5px rgba(0, 0, 0, 0.1),
+            0 0 0 4px rgba(102, 126, 234, 0.3),
+            0 4px 0 #667eea,
+            0 8px 20px rgba(102, 126, 234, 0.4);
+    transform: translateY(-3px);
 }
 
 .register_form_container input::placeholder {
-    color: #999;
-    font-weight: 400;
+    color: #666;
+    font-weight: 500;
+    font-family: 'Arial', sans-serif;
 }
 
 .register_form_container input:hover {
-    border-color: rgba(102, 126, 234, 0.5);
-    transform: translateY(-1px);
+    border-color: #667eea;
+    transform: translateY(-2px);
+    box-shadow:
+            inset 0 2px 5px rgba(0, 0, 0, 0.1),
+            0 3px 0 #667eea;
 }
 
-/* ==================== BOUTON ==================== */
+/* État d'erreur */
+.input_error {
+    border-color: #ff4444 !important;
+    box-shadow:
+            inset 0 2px 5px rgba(0, 0, 0, 0.1),
+            0 2px 0 #ff4444 !important;
+}
 
-.register_form_container button {
-    padding: 1rem 2rem;
-    border: none;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #333;
+.input_error:focus {
+    border-color: #ff4444 !important;
+    box-shadow:
+            inset 0 2px 5px rgba(0, 0, 0, 0.1),
+            0 0 0 4px rgba(255, 68, 68, 0.3),
+            0 4px 0 #ff4444,
+            0 8px 20px rgba(255, 68, 68, 0.4) !important;
+}
+
+/* Message d'erreur */
+.error_message {
+    display: block;
     margin-top: 0.5rem;
-    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
-    background-size: 200% 200%;
+    padding: 0.5rem 0.75rem;
+    background: rgba(255, 68, 68, 0.1);
+    border-left: 3px solid #ff4444;
+    border-radius: 4px;
+    color: #cc0000;
+    font-size: 0.813rem;
+    font-weight: 600;
+    font-family: 'Arial', sans-serif;
+}
+
+/* ==================== BOUTON PRINCIPAL ==================== */
+
+.register_form_container button[type="submit"] {
+    padding: 1.125rem 2rem;
+    border: 4px solid #1a1a1a;
+    border-radius: 50px;
+    font-size: 1.125rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    margin-top: 0.5rem;
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+
+    /* Dégradé style bouton Pokémon */
+    background: linear-gradient(
+            180deg,
+            #ffd700 0%,
+            #ffed4e 50%,
+            #ffd700 100%
+    );
+
     box-shadow:
-            0 4px 15px rgba(255, 215, 0, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            0 6px 0 #cc9900,
+            0 8px 20px rgba(0, 0, 0, 0.4),
+            inset 0 2px 0 rgba(255, 255, 255, 0.5),
+            inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+
+    transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    text-shadow:
+            1px 1px 0 rgba(255, 255, 255, 0.5),
+            -1px -1px 0 rgba(0, 0, 0, 0.2);
 }
 
-.register_form_container button:hover {
-    background-position: 100% 50%;
-    transform: translateY(-3px) scale(1.05);
+.register_form_container button[type="submit"]:hover {
+    transform: translateY(-4px) scale(1.05);
     box-shadow:
-            0 8px 25px rgba(255, 215, 0, 0.6),
-            0 0 20px rgba(255, 215, 0, 0.4);
+            0 8px 0 #cc9900,
+            0 12px 30px rgba(255, 215, 0, 0.6),
+            0 0 40px rgba(255, 215, 0, 0.4),
+            inset 0 2px 0 rgba(255, 255, 255, 0.6);
 }
 
-.register_form_container button::before {
+.register_form_container button[type="submit"]:active {
+    transform: translateY(2px) scale(1.02);
+    box-shadow:
+            0 2px 0 #cc9900,
+            0 4px 10px rgba(0, 0, 0, 0.4),
+            inset 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Effet de brillance électrique */
+.register_form_container button[type="submit"]::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    transition: left 0.6s ease;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+            45deg,
+            transparent 30%,
+            rgba(255, 255, 255, 0.8) 50%,
+            transparent 70%
+    );
+    transform: rotate(45deg);
+    animation: buttonShine 3s ease-in-out infinite;
 }
 
-.register_form_container button:hover::before {
-    left: 100%;
+@keyframes buttonShine {
+    0%, 100% {
+        left: -50%;
+    }
+    50% {
+        left: 150%;
+    }
 }
 
-.register_form_container button:active {
-    transform: translateY(-1px) scale(1.02);
+/* Icône Pokéball dans le bouton */
+.register_form_container button[type="submit"]::after {
+    content: '⚪';
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.25rem;
+    animation: pokeballSpin 2s linear infinite;
+}
+
+@keyframes pokeballSpin {
+    from { transform: translateY(-50%) rotate(0deg); }
+    to { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* ==================== DIVIDER ==================== */
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0 0.75rem 0;
+    position: relative;
+    z-index: 1;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(
+            90deg,
+            transparent,
+            #1a1a1a,
+            transparent
+    );
+}
+
+.divider span {
+    color: #666;
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-family: 'Arial', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0 0.5rem;
+}
+
+/* ==================== LIEN VERS CONNEXION ==================== */
+
+.login_link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.login_text {
+    color: #666;
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: 'Arial', sans-serif;
+}
+
+.login_button {
+    background: none;
+    border: 3px solid #1a1a1a;
+    padding: 0.75rem 2rem;
+    margin: 0;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    font-family: 'Arial', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+
+    background: linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #f0f0f0 50%,
+            #ffffff 100%
+    );
+
+    box-shadow:
+            0 4px 0 #999,
+            0 6px 15px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+    transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    text-shadow: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.login_button::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+            45deg,
+            transparent 30%,
+            rgba(102, 126, 234, 0.3) 50%,
+            transparent 70%
+    );
+    transform: rotate(45deg);
+    animation: loginShine 3s ease-in-out infinite;
+}
+
+.login_button::after {
+    display: none;
+}
+
+@keyframes loginShine {
+    0%, 100% {
+        left: -50%;
+    }
+    50% {
+        left: 150%;
+    }
+}
+
+.login_button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow:
+            0 6px 0 #999,
+            0 10px 25px rgba(102, 126, 234, 0.4),
+            0 0 30px rgba(102, 126, 234, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.login_button:active {
+    transform: translateY(0) scale(1.02);
+    box-shadow:
+            0 2px 0 #999,
+            0 3px 8px rgba(0, 0, 0, 0.3),
+            inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* ==================== RESPONSIVE ==================== */
@@ -153,7 +520,7 @@
         font-size: 2rem;
     }
     .register_form_container form {
-        padding: 2.5rem;
+        padding: 2rem;
         max-width: 400px;
     }
 }
@@ -164,19 +531,57 @@
     }
     .register_form_container h2 {
         font-size: 1.75rem;
+        letter-spacing: 2px;
     }
     .register_form_container form {
         padding: 2rem 1.5rem;
+        gap: 1rem;
+    }
+    .register_form_container button[type="submit"] {
+        font-size: 1rem;
+        padding: 1rem 1.5rem;
+    }
+
+    .login_text {
+        font-size: 0.813rem;
+    }
+
+    .login_button {
+        font-size: 0.938rem;
+        padding: 0.625rem 1.5rem;
     }
 }
 
 @media (max-width: 480px) {
     .register_form_container h2 {
         font-size: 1.5rem;
+        letter-spacing: 1px;
+    }
+    .register_form_container h2::after {
+        left: -2rem;
+        font-size: 1.25rem;
     }
     .register_form_container form {
         padding: 1.75rem 1.25rem;
-        border-radius: 20px;
+        border-radius: 16px;
+    }
+    .register_form_container button[type="submit"] {
+        font-size: 0.938rem;
+        letter-spacing: 1px;
+    }
+
+    .login_link {
+        gap: 0.5rem;
+    }
+
+    .login_text {
+        font-size: 0.75rem;
+    }
+
+    .login_button {
+        font-size: 0.875rem;
+        padding: 0.625rem 1.25rem;
+        letter-spacing: 1px;
     }
 }
 
@@ -184,13 +589,41 @@
 
 .register_form_container input:focus-visible,
 .register_form_container button:focus-visible {
-    outline: 3px solid #ffd700;
-    outline-offset: 2px;
+    outline: 4px solid #667eea;
+    outline-offset: 3px;
+    animation: focusPulse 1s ease-in-out infinite;
+}
+
+@keyframes focusPulse {
+    0%, 100% {
+        outline-color: #667eea;
+        outline-width: 4px;
+    }
+    50% {
+        outline-color: #7b8ff0;
+        outline-width: 6px;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .register_form_container * {
+    .register_form_container *,
+    .register_form_container::before,
+    .register_form_container::after,
+    .register_form_container form::after,
+    .register_form_container button::before,
+    .register_form_container button::after,
+    .register_form_container h2::after,
+    .login_button::before {
         animation: none !important;
         transition: none !important;
+    }
+
+    .register_form_container h2 {
+        text-shadow:
+                3px 3px 0 #4a5fd9,
+                -1px -1px 0 #fff,
+                1px -1px 0 #fff,
+                -1px 1px 0 #fff,
+                1px 1px 0 #fff;
     }
 }

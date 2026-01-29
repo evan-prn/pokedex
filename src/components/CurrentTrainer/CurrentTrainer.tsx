@@ -2,13 +2,14 @@
  * CurrentTrainer.tsx
  *
  * Composant affichant les informations du dresseur actuellement sélectionné.
- * Reçoit le dresseur depuis le composant parent (Navbar).
+ * Affiche le nom du dresseur et le nombre de Pokémon capturés.
  */
-import type {JSX} from "react";
+import type { JSX } from "react";
+import { useAppSelector } from '../../store/hooks';
+import { selectTrainerPokemonCount } from '../../store/selectors/pokemon-selectors';
 import type { ITrainer } from '../../types/ITrainer';
 
 import style from './CurrentTrainer.module.css';
-
 
 /**
  * Props du composant CurrentTrainer
@@ -21,11 +22,16 @@ interface CurrentTrainerProps {
 /**
  * Composant affichant la carte du dresseur actuel
  *
- * @param {CurrentTrainerProps} props _ Props du composant
+ * @param {CurrentTrainerProps} props - Props du composant
  * @returns {JSX.Element} Carte du dresseur ou message par défaut
  */
 const CurrentTrainer = ({ trainer }: CurrentTrainerProps): JSX.Element => {
-    
+
+    // Récupère le nombre de Pokémon capturés par le dresseur
+    const pokemonCount = useAppSelector(
+        selectTrainerPokemonCount(trainer?.trainerName || '')
+    );
+
     // Si aucun dresseur n'est sélectionné, afficher un message
     if (!trainer) {
         return (
@@ -51,8 +57,10 @@ const CurrentTrainer = ({ trainer }: CurrentTrainerProps): JSX.Element => {
                     </div>
 
                     <div className={style.info_row}>
-                        <span className={style.label}>Password :</span>
-                        <span className={style.value}>{trainer.trainerPassword}</span>
+                        <span className={style.label}>Pokémon :</span>
+                        <span className={style.value}>
+                            {pokemonCount} {pokemonCount > 1 ? 'capturés' : 'capturé'}
+                        </span>
                     </div>
                 </div>
             </div>

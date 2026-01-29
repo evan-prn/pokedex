@@ -11,14 +11,16 @@
  */
 .pokemon_card {
     border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 8px;
-    text-align: center;
+    border-radius: 12px;
     background: white;
+    overflow: hidden;
 
     /* Améliorations pour un meilleur rendu */
     transition: all 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    flex-direction: column;
 }
 
 /**
@@ -28,6 +30,31 @@
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
     border-color: #667eea;
+}
+
+/* ==================== CONTENU CLIQUABLE ==================== */
+
+/**
+ * Zone cliquable de la carte (tout sauf le bouton)
+ */
+.pokemon_card_content {
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+.pokemon_card_content:hover {
+    background-color: rgba(102, 126, 234, 0.02);
+}
+
+.pokemon_card_content:focus-visible {
+    outline: 2px solid #667eea;
+    outline-offset: -2px;
 }
 
 /* ==================== NUMÉRO POKÉDEX ==================== */
@@ -52,6 +79,7 @@
     height: 100px;
     object-fit: contain;
     transition: transform 0.3s ease;
+    pointer-events: none;
 }
 
 /**
@@ -113,14 +141,29 @@
     transform: scale(1.05);
 }
 
+/* ==================== ZONE DES ACTIONS ==================== */
+
+/**
+ * Zone contenant le bouton de capture
+ * Non cliquable pour la navigation
+ */
+.pokemon_actions {
+    padding: 0.75rem 1rem;
+    background: rgba(0, 0, 0, 0.02);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* ==================== RESPONSIVE ==================== */
 
 /**
  * Tablettes (max 768px)
  */
 @media (max-width: 768px) {
-    .pokemon_card {
-        padding: 8px;
+    .pokemon_card_content {
+        padding: 0.75rem;
     }
 
     .pokemon_sprite {
@@ -136,6 +179,10 @@
         font-size: 0.688rem;
         padding: 2px 6px;
     }
+
+    .pokemon_actions {
+        padding: 0.625rem 0.75rem;
+    }
 }
 
 /**
@@ -143,8 +190,11 @@
  */
 @media (max-width: 480px) {
     .pokemon_card {
-        padding: 6px;
-        border-radius: 6px;
+        border-radius: 10px;
+    }
+
+    .pokemon_card_content {
+        padding: 0.625rem;
     }
 
     .pokedex_number {
@@ -164,6 +214,10 @@
         font-size: 0.625rem;
         padding: 1px 5px;
     }
+
+    .pokemon_actions {
+        padding: 0.5rem;
+    }
 }
 
 /* ==================== ACCESSIBILITÉ ==================== */
@@ -174,4 +228,20 @@
 .pokemon_card:focus-within {
     outline: 2px solid #667eea;
     outline-offset: 2px;
+}
+
+/**
+ * Réduction des animations pour accessibilité
+ */
+@media (prefers-reduced-motion: reduce) {
+    .pokemon_card,
+    .pokemon_sprite,
+    .type_badge,
+    .pokemon_card_content {
+        transition: none !important;
+    }
+
+    .pokemon_card:hover .pokemon_sprite {
+        transform: none;
+    }
 }

@@ -3,8 +3,8 @@
  * Configuration du store Redux avec persistance localStorage
  */
 
-import { configureStore } from '@reduxjs/toolkit';
-import pokemonReducer from './slices/pokemon-slice';
+import { configureStore }   from '@reduxjs/toolkit';
+import pokemonReducer       from './slices/pokemon-slice';
 
 export const store = configureStore({
     reducer: {
@@ -27,5 +27,5 @@ store.subscribe(() => {
 /**
  * Types pour TypeScript
  */
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState   = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

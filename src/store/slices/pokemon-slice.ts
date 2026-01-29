@@ -3,8 +3,8 @@
  * Slice Redux pour gérer les Pokémon capturés par dresseur
  */
 
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { ICaughtPokemon } from '../../types/ICaughtPokemon';
+import { createSlice, type PayloadAction }  from '@reduxjs/toolkit';
+import type { ICaughtPokemon }              from '../../types/ICaughtPokemon';
 
 /**
  * Structure de l'état :

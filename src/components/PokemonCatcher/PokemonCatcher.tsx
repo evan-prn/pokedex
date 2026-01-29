@@ -3,7 +3,7 @@
  * Exemple de composant utilisant le store Redux
  */
 
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks.ts';
 import { catchPokemon, releasePokemon } from '../../store/slices/pokemon-slice';
 import { selectTrainerPokemon, selectIsPokemonCaught } from '../../store/selectors/pokemon-selectors';
 import type { ICaughtPokemon } from '../../types/ICaughtPokemon';

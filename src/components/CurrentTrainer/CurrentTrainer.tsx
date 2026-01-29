@@ -5,7 +5,7 @@
  * Affiche le nom du dresseur et le nombre de Pokémon capturés.
  */
 import type { JSX } from "react";
-import { useAppSelector } from '../../store/hooks';
+import { useAppSelector } from '../../hooks/hooks.ts';
 import { selectTrainerPokemonCount } from '../../store/selectors/pokemon-selectors';
 import type { ITrainer } from '../../types/ITrainer';
 

@@ -5,7 +5,7 @@
  */
 
 import { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks.ts';
 import { catchPokemon, releasePokemon } from '../../../store/slices/pokemon-slice';
 import { selectIsPokemonCaught } from '../../../store/selectors/pokemon-selectors';
 import type { ICaughtPokemon } from '../../../types/ICaughtPokemon';

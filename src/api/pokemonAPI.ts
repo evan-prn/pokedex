@@ -5,7 +5,7 @@ import type {IGenerationRange} from "../types/IGeneration.ts";
 
 export const pokemonAPI = createApi({
     reducerPath: "pokemonAPI",
-    baseQuery: fetchBaseQuery({ baseUrl: "https://tyradex.vercel.app/api/v1/" }),
+    baseQuery: fetchBaseQuery({ baseUrl: "https://tyradex.d.app/api/v1/" }),
 
     endpoints: (builder) => ({
 

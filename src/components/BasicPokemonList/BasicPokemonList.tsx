@@ -6,6 +6,7 @@ import PokemonCard from '../PokemonCard/PokemonCard.tsx';
 import Loading from "../Loading/Loading.tsx";
 
 import styles from './BasicPokemonList.module.css';
+import LoadingError from "../LoadingError/LoadingError.tsx";
 
 const BasicPokemonList = (): JSX.Element => {
     // Récupère la génération active depuis Redux
@@ -16,17 +17,13 @@ const BasicPokemonList = (): JSX.Element => {
         data: pokemons = [],
         isLoading,
         isError,
-        error
     } = useGetPokemonByGenerationQuery(currentGen);
 
     if (isLoading) return <Loading />;
 
     if (isError) {
         return (
-            <div style={{ padding: '20px', color: 'red' }}>
-                <h2>Erreur de chargement</h2>
-                <p>{error ? JSON.stringify(error) : 'Erreur inconnue'}</p>
-            </div>
+            <LoadingError />
         );
     }
 

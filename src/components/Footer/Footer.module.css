@@ -1,0 +1,134 @@
+/**
+ * Footer.module.css
+ * Styles du pied de page — thème clair adapté au fond de l'application
+ */
+
+.footer {
+    margin-top: auto;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.05);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* ── Contenu principal ── */
+.footer_content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+/* ── Bloc marque ── */
+.footer_brand {
+    flex: 1 1 200px;
+}
+
+.footer_logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+}
+
+.footer_logo img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.footer_logo span {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #222;
+    letter-spacing: 0.5px;
+}
+
+.footer_description {
+    font-size: 0.85rem;
+    color: rgba(0, 0, 0, 0.55);
+    line-height: 1.5;
+    max-width: 220px;
+}
+
+/* ── Navigation & API ── */
+.footer_nav,
+.footer_api {
+    flex: 0 1 140px;
+}
+
+.footer_nav_title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: rgba(0, 0, 0, 0.4);
+    margin-bottom: 0.75rem;
+}
+
+.footer_nav_list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footer_nav_list a {
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, 0.65);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer_nav_list a:hover {
+    color: #000;
+}
+
+/* ── Bloc API ── */
+.footer_api p {
+    font-size: 0.85rem;
+    color: rgba(0, 0, 0, 0.55);
+    margin-bottom: 0.4rem;
+}
+
+.footer_api_link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #c0392b;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer_api_link:hover {
+    color: #e74c3c;
+    text-decoration: underline;
+}
+
+/* ── Barre de copyright ── */
+.footer_bottom {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 0.9rem 1.5rem;
+    text-align: center;
+}
+
+.footer_bottom p {
+    font-size: 0.78rem;
+    color: rgba(0, 0, 0, 0.35);
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+    .footer_content {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .footer_description {
+        max-width: 100%;
+    }
+}

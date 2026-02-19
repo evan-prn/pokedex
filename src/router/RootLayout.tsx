@@ -7,6 +7,7 @@ import { Outlet } from 'react-router-dom';
 import type { ITrainer } from '../types/ITrainer.ts';
 
 import Navbar from '../components/Navbar/Navbar.tsx';
+import Footer from '../components/Footer/Footer.tsx';
 
 export default function RootLayout() {
 
@@ -26,6 +27,9 @@ export default function RootLayout() {
                 onLogout={handleLogout}
             />
             <Outlet context={{ selectedTrainer, setSelectedTrainer }} />
+            <footer>
+                <Footer />
+            </footer>
         </>
     );
 }

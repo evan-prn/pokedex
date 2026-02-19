@@ -6,6 +6,7 @@ import PokemonDetailedView  from "../components/PokemonDetailedView/PokemonDetai
 import NotFound             from "../components/NotFound/NotFound.tsx";
 import LoginForm            from "../components/Auth/LoginForm/LoginForm.tsx";
 import RegisterForm         from "../components/Auth/RegisterForm/RegisterForm.tsx";
+import PokemonList from "../components/PokemonList/PokemonList.tsx";
 
 /**
  *
@@ -18,6 +19,10 @@ const myRoutes: RouteObject[] = [
             {
                 index: true,
                 element: <App />,
+            },
+            {
+                path: 'pokemon',
+                element: <PokemonList />,
             },
             {
                 path: 'pokemon/:pokeId',

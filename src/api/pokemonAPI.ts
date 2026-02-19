@@ -59,3 +59,7 @@ export const {
     useGetPokemonByGenerationQuery,
     useGetGenerationListQuery,
 } = pokemonAPI;
+
+export const BaseQueryWithReauth = () => {
+
+}
